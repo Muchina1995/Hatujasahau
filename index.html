@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hatujasahau — We have not forgotten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#e7e3d7;
+    --paper-raised:#f1eee4;
+    --ink:#201d18;
+    --ink-soft:#4a453c;
+    --muted:#847d6d;
+    --line:#c7c0ab;
+    --red:#7d3128;
+    --red-bg:#ecd9d3;
+    --olive:#4c5323;
+    --olive-bg:#dfe2ca;
+    --amber:#8a5a1f;
+    --amber-bg:#ecdec4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--red);color:var(--paper-raised);}
+
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    background:#2b2620;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(244,241,232,0.035) 0px, rgba(244,241,232,0.035) 1px, transparent 1px, transparent 22px),
+      radial-gradient(ellipse at 30% 20%, rgba(125,49,40,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(76,83,35,0.3) 0%, transparent 55%);
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(20,17,12,0.5) 0%, rgba(20,17,12,0.5) 100%);
+  }
+  .site-header{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px 0;
+    border-bottom:1px solid rgba(244,241,232,0.18);
+  }
+  .site-logo{
+    font-family:'Newsreader',serif;
+    font-style:italic;
+    font-size:21px;
+    color:#f4f1e8;
+    flex-shrink:0;
+  }
+  .site-nav{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    row-gap:8px;
+    column-gap:20px;
+    align-items:center;
+    font-size:13.5px;
+  }
+  .site-nav button.tab-btn{
+    background:none;
+    border:none;
+    padding:0 0 4px;
+    color:rgba(244,241,232,0.82);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:13.5px;
+    letter-spacing:0;
+    clip-path:none;
+    top:0;
+    white-space:nowrap;
+    border-bottom:1px solid transparent;
+  }
+  .site-nav button.tab-btn:hover{background:none;color:#f4f1e8;}
+  .site-nav button.tab-btn.active{
+    background:none;
+    color:#f4f1e8;
+    border-bottom:1px solid #f4f1e8;
+    border-color:#f4f1e8;
+  }
+  .site-cta{
+    background:transparent;
+    border:1px solid rgba(244,241,232,0.55);
+    padding:8px 16px;
+    border-radius:2px;
+    font-size:12.5px;
+    color:#f4f1e8;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .site-cta:hover{border-color:#f4f1e8;background:rgba(244,241,232,0.08);}
+  .home-hero{
+    position:relative;
+    background:#2b2620;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(244,241,232,0.035) 0px, rgba(244,241,232,0.035) 1px, transparent 1px, transparent 22px),
+      radial-gradient(ellipse at 30% 20%, rgba(125,49,40,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(76,83,35,0.3) 0%, transparent 55%);
+    border-radius:12px;
+    padding:40px 32px;
+    margin-bottom:36px;
+  }
+  .home-hero .line1{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:16px;
+    color:#f4f1e8;
+    margin:0 0 6px;
+  }
+  .home-hero .line2{
+    font-family:'Newsreader',serif;
+    font-style:italic;
+    font-size:clamp(28px,5vw,40px);
+    color:#f4f1e8;
+    margin:0;
+  }
+
+  .mission{
+    font-family:'Newsreader',serif;
+    font-size:17px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    max-width:70ch;
+    margin:0 0 40px;
+    padding-bottom:32px;
+    border-bottom:1px dashed var(--line);
+  }
+
+  .skip-link{position:absolute;left:-999px;top:auto;}
+  .skip-link:focus{left:12px;top:12px;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:4px;z-index:100;}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  main{
+    background:var(--paper-raised);
+    border-bottom:1px solid var(--line);
+    min-height:520px;
+    padding:40px 0 64px;
+  }
+  section.panel{display:none;}
+  section.panel.active{display:block;animation:fade 0.25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--red);
+    margin:0 0 10px;
+  }
+  h2.headline{
+    font-family:'Newsreader',serif;
+    font-weight:500;
+    font-size:30px;
+    margin:0 0 12px;
+    max-width:34ch;
+    line-height:1.2;
+  }
+  p.lede{
+    font-size:15.5px;
+    color:var(--ink-soft);
+    max-width:62ch;
+    margin:0 0 32px;
+  }
+
+  /* Stat strip */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border:1px solid var(--line);
+    border-radius:2px;
+    margin-bottom:36px;
+    overflow:hidden;
+  }
+  .stat{padding:18px 20px;border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat .n{font-family:'Newsreader',serif;font-size:30px;font-weight:600;display:block;}
+  .stat .l{font-size:12.5px;color:var(--muted);}
+
+  /* Case file cards */
+  .cases{display:flex;flex-direction:column;gap:14px;}
+  .case{
+    border:1px solid var(--line);
+    border-left:3px solid var(--muted);
+    background:var(--paper);
+    border-radius:2px;
+    padding:18px 22px;
+  }
+  .case.flag-red{border-left-color:var(--red);}
+  .case.flag-olive{border-left-color:var(--olive);}
+  .case.flag-amber{border-left-color:var(--amber);}
+  .case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .case-title{font-family:'Newsreader',serif;font-size:18px;font-weight:500;margin:0;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    padding:3px 9px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .tag.red{background:var(--red-bg);color:var(--red);}
+  .tag.olive{background:var(--olive-bg);color:var(--olive);}
+  .tag.amber{background:var(--amber-bg);color:var(--amber);}
+  .case-body{font-size:14px;color:var(--ink-soft);margin:0 0 12px;max-width:64ch;}
+  .case-meta{display:flex;gap:18px;font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;}
+
+  .divider-note{
+    font-size:12.5px;
+    color:var(--muted);
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+    margin-top:28px;
+  }
+
+  /* Search + filter */
+  .search-input{
+    width:100%;
+    padding:10px 14px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--paper);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:13.5px;
+    color:var(--ink);
+    margin-bottom:14px;
+  }
+  .search-input::placeholder{color:var(--muted);}
+  .search-input:focus{outline:none;border-color:var(--ink-soft);}
+  .filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .filter-btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:6px 14px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    color:var(--ink-soft);
+    border-radius:2px;
+  }
+  .filter-btn:hover{background:var(--paper-raised);}
+  .filter-btn.active{background:var(--ink);color:var(--paper-raised);border-color:var(--ink);}
+  .no-results{font-size:13px;color:var(--muted);padding:18px 0;display:none;}
+
+  /* Contact page */
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{
+    display:block;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .form-group input,
+  .form-group textarea{
+    width:100%;
+    padding:10px 14px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--paper);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{outline:none;border-color:var(--ink-soft);}
+  .form-group textarea{resize:vertical;min-height:110px;}
+  .form-error{font-size:12.5px;color:var(--red);margin-top:5px;display:none;}
+  .form-success{
+    font-size:13.5px;
+    color:var(--olive);
+    background:var(--olive-bg);
+    border-radius:2px;
+    padding:10px 14px;
+    margin-bottom:16px;
+    display:none;
+  }
+  .send-btn{
+    border:1px solid var(--ink);
+    background:var(--ink);
+    color:var(--paper-raised);
+    padding:10px 22px;
+    border-radius:2px;
+    font-size:13.5px;
+    font-family:'IBM Plex Sans',sans-serif;
+  }
+  .send-btn:hover{background:var(--ink-soft);}
+  .contact-info h3{
+    font-family:'Newsreader',serif;
+    font-size:16px;
+    font-weight:500;
+    margin:0 0 12px;
+  }
+  .contact-info .email-link{
+    display:inline-block;
+    font-size:14.5px;
+    color:var(--red);
+    margin-bottom:24px;
+  }
+  .social-list{list-style:none;margin:0;padding:0;}
+  .social-list li{border-top:1px solid var(--line);}
+  .social-list li:first-child{border-top:none;}
+  .social-list a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .social-list a:hover{color:var(--red);}
+  .social-list .handle{color:var(--muted);font-size:12.5px;font-family:'IBM Plex Mono',monospace;}
+
+  /* Language toggle */
+  .lang-toggle{
+    background:none;
+    border:1px solid rgba(244,241,232,0.4);
+    color:#f4f1e8;
+    font-size:12px;
+    padding:6px 10px;
+    border-radius:2px;
+    flex-shrink:0;
+  }
+  .lang-toggle:hover{border-color:#f4f1e8;}
+
+  /* About page */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;}
+  .about-grid h3{font-family:'Newsreader',serif;font-size:17px;font-weight:500;margin:0 0 8px;}
+  .about-grid p{font-size:14.5px;color:var(--ink-soft);margin:0 0 22px;}
+  .principle{margin-bottom:18px;}
+  .principle .k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);display:block;margin-bottom:4px;}
+
+  footer{
+    text-align:center;
+    padding:26px 0 40px;
+    font-size:12px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  .site-nav button.tab-btn:focus-visible{outline:1px solid #f4f1e8;outline-offset:3px;}
+
+  @media (max-width:640px){
+    .site-header{flex-wrap:wrap;}
+    .site-nav{justify-content:flex-start;width:100%;order:3;}
+    .stats{grid-template-columns:1fr;}
+    .stat{border-right:none;border-bottom:1px solid var(--line);}
+    .stat:last-child{border-bottom:none;}
+    .about-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    section.panel.active{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="hero">
+  <div class="wrap site-header">
+    <span class="site-logo">Hatujasahau</span>
+    <nav class="site-nav" aria-label="Site sections">
+      <button class="tab-btn active" data-tab="home" data-sw="Nyumbani">Home</button>
+      <button class="tab-btn" data-tab="killings" data-sw="Mauaji">Killings</button>
+      <button class="tab-btn" data-tab="corruption" data-sw="Ufisadi">Corruption</button>
+      <button class="tab-btn" data-tab="sixmonths" data-sw="Miezi 6">In 6 months</button>
+      <button class="tab-btn" data-tab="news" data-sw="Habari">News</button>
+      <button class="tab-btn" data-tab="about" data-sw="Kuhusu sisi">About us</button>
+    </nav>
+    <button type="button" class="tab-btn site-cta" data-tab="contact" data-sw="Wasiliana nasi">Contact us</button>
+    <button type="button" class="lang-toggle" id="langToggle" data-lang="en">EN / SW</button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <!-- HOME -->
+    <section class="panel active" id="panel-home">
+      <div class="home-hero">
+        <p class="line1" data-sw="Kufichua ufisadi serikalini.">Exposing corruption in the government.</p>
+        <p class="line2" data-sw="Haki kwetu.">Justice to us.</p>
+      </div>
+
+      <p class="mission" data-sw="Tunasimamia haki, ukweli, na uwajibikaji. Dhamira yetu ni kutafuta haki kwa maisha ya watu wasio na hatia yaliyopotea kwa vurugu za kisiasa, ukatili wa polisi, na matumizi mabaya ya mamlaka ya serikali. Kila maisha yaliyopotea kinyume cha sheria ni jeraha kwa taifa letu, na kila kifo kisichojibiwa kinazidisha dhuluma hiyo. Tunasema kwa ajili ya wale waliofanywa kimya, tunawaheshimu waliopotea, na tunadai uwajibikaji kutoka kwa wale waliokabidhiwa mamlaka. Haki si hisani inayotolewa na mamlaka — ni haki inayostahili kila raia. Mpaka ukweli utambuliwe na haki itolewe, tutaendelea kusimama, kusema, na kutafuta Kenya ambapo maisha ya binadamu yanaheshimiwa na utawala wa sheria unadumu.">We stand for justice, truth, and accountability. Our mission is to seek justice for innocent lives lost to political violence, police brutality, and abuse of state power. Every life taken unjustly is a wound to our nation, and every unanswered death deepens that injustice. We speak for the silenced, honor the fallen, and demand accountability from those entrusted with authority. Justice is not a favor granted by power — it is a right owed to every citizen. Until truth is acknowledged and justice is served, we will continue to stand, to speak, and to seek a Kenya where human life is respected and the rule of law prevails.</p>
+
+      <p class="eyebrow" data-sw="UCHUNGUZI MAALUM">FEATURED INVESTIGATION</p>
+      <h2 class="headline" data-sw="Mfuko wa barabara za kaunti: shilingi bilioni 2.3, asilimia 40 ya miradi haijakamilika">County road fund: 2.3 billion shillings, 40% of projects incomplete</h2>
+      <p class="lede" data-sw="Kumbukumbu za ununuzi zimelinganishwa na ziara za maeneo katika kaunti sita. Nyaraka kumi na mbili za chanzo.">Procurement records cross-referenced against site visits across six counties. Twelve source documents.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="n">148</span><span class="l" data-sw="Kesi za ufisadi zilizorekodiwa">Corruption cases logged</span></div>
+        <div class="stat"><span class="n">37</span><span class="l" data-sw="Ahadi za miezi sita zinazofuatiliwa">Six-month promises tracked</span></div>
+        <div class="stat"><span class="n">—</span><span class="l" data-sw="Mauaji yaliyorekodiwa, tazama kichupo">Killings documented, see tab</span></div>
+      </div>
+
+      <p class="eyebrow" style="margin-bottom:16px;" data-sw="MAINGIZO MAPYA">LATEST ENTRIES</p>
+      <div class="cases">
+        <div class="case flag-red">
+          <div class="case-top">
+            <p class="case-title">Audit flags unexplained transfers in ministry payroll</p>
+            <span class="tag red">Corruption</span>
+          </div>
+          <p class="case-body">Internal audit obtained through a records request shows payments to accounts with no matching personnel file.</p>
+          <div class="case-meta"><span>2 days ago</span><span>4 sources</span></div>
+        </div>
+        <div class="case flag-amber">
+          <div class="case-top">
+            <p class="case-title">Timeline: new external borrowing this fiscal year</p>
+            <span class="tag amber">Debt</span>
+          </div>
+          <p class="case-body">A running log of new loan agreements disclosed to parliament, compared against Treasury statements.</p>
+          <div class="case-meta"><span>5 days ago</span><span>6 sources</span></div>
+        </div>
+        <div class="case flag-olive">
+          <div class="case-top">
+            <p class="case-title">Video: eyewitness accounts from Mathare, verified</p>
+            <span class="tag olive">Killings</span>
+          </div>
+          <p class="case-body">Footage geolocated and cross-checked against two independent witness statements.</p>
+          <div class="case-meta"><span>1 week ago</span><span>3 sources</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KILLINGS -->
+    <section class="panel" id="panel-killings">
+      <p class="eyebrow" data-sw="KESI ZILIZOREKODIWA">DOCUMENTED CASES</p>
+      <h2 class="headline" data-sw="Kifuatiliaji cha mauaji ya kiholela">Extrajudicial killings tracker</h2>
+      <p class="lede" data-sw="Kila ingizo linathibitishwa na angalau chanzo kimoja huru — mashirika ya haki za binadamu, mashtaka mahakamani, au vyombo vya habari vilivyothibitishwa — kabla ya kuorodheshwa hapa.">Each entry is corroborated by at least one independent source — human rights organisations, court filings, or verified media — before it is listed here.</p>
+
+      <input type="text" class="search-input" placeholder="Search killings..." data-sw-placeholder="Tafuta mauaji..." aria-label="Search killings">
+      <div class="filter-row">
+        <button class="filter-btn active" data-status="all" data-sw="Zote">All</button>
+        <button class="filter-btn" data-status="investigating" data-sw="Zinazochunguzwa">Investigating</button>
+        <button class="filter-btn" data-status="closed" data-sw="Zilizofungwa">Closed</button>
+      </div>
+
+      <div class="cases">
+        <div class="case flag-red" data-status="investigating">
+          <div class="case-top">
+            <p class="case-title">Nairobi, Mathare — protest-related death</p>
+            <span class="tag red">Under investigation</span>
+          </div>
+          <p class="case-body">Circumstances reported by witnesses at the scene. Independent inquest has not concluded.</p>
+          <div class="case-meta"><span>Reported this month</span><span>3 sources</span></div>
+        </div>
+        <div class="case flag-amber" data-status="investigating">
+          <div class="case-top">
+            <p class="case-title">Kisumu — custody death</p>
+            <span class="tag amber">Inquest ongoing</span>
+          </div>
+          <p class="case-body">Family and rights group have filed for an independent post-mortem, per statements to local press.</p>
+          <div class="case-meta"><span>Reported last month</span><span>2 sources</span></div>
+        </div>
+      </div>
+      <p class="no-results" data-sw="Hakuna kesi zinazofanana.">No matching cases.</p>
+
+      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
+    </section>
+
+    <!-- CORRUPTION -->
+    <section class="panel" id="panel-corruption">
+      <p class="eyebrow" data-sw="KESI 148 ZINAZOFUATILIWA">148 CASES TRACKED</p>
+      <h2 class="headline" data-sw="Kifuatiliaji cha ufisadi">Corruption tracker</h2>
+      <p class="lede" data-sw="Fedha za umma, ununuzi, na maafisa — zimepangwa ili dai lolote liweze kufuatiliwa hadi kwenye nyaraka.">Public funds, procurement, and officials — organised so a claim can always be traced back to a document.</p>
+
+      <input type="text" class="search-input" placeholder="Search corruption cases..." data-sw-placeholder="Tafuta kesi za ufisadi..." aria-label="Search corruption cases">
+      <div class="filter-row">
+        <button class="filter-btn active" data-status="all" data-sw="Zote">All</button>
+        <button class="filter-btn" data-status="open" data-sw="Wazi">Open</button>
+        <button class="filter-btn" data-status="review" data-sw="Inakaguliwa">Under review</button>
+      </div>
+
+      <div class="cases">
+        <div class="case flag-red" data-status="open">
+          <div class="case-top">
+            <p class="case-title">County road fund shortfall</p>
+            <span class="tag red">Ksh 2.3bn</span>
+          </div>
+          <p class="case-body">Contracted road length does not match kilometres surfaced on site inspection across six counties.</p>
+          <div class="case-meta"><span>Opened Aug 2026</span><span>12 sources</span></div>
+        </div>
+        <div class="case flag-amber" data-status="review">
+          <div class="case-top">
+            <p class="case-title">Ministry payroll transfers</p>
+            <span class="tag amber">Under review</span>
+          </div>
+          <p class="case-body">Audit obtained via records request; matching personnel files not yet located.</p>
+          <div class="case-meta"><span>Opened this month</span><span>4 sources</span></div>
+        </div>
+      </div>
+      <p class="no-results" data-sw="Hakuna kesi zinazofanana.">No matching cases.</p>
+
+      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
+    </section>
+
+    <!-- IN 6 MONTHS -->
+    <section class="panel" id="panel-sixmonths">
+      <p class="eyebrow" data-sw="AHADI DHIDI YA MATOKEO">PROMISE VS. OUTCOME</p>
+      <h2 class="headline" data-sw="Miezi 6">In 6 months</h2>
+      <p class="lede" data-sw="Kila mradi ulioahidiwa kukamilika 'ndani ya miezi sita,' unaangaliwa dhidi ya kilichotokea ardhini.">Every project promised complete "within six months," checked against what actually happened on the ground.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="n">37</span><span class="l" data-sw="Ahadi zilizorekodiwa">Promises logged</span></div>
+        <div class="stat"><span class="n">2</span><span class="l" data-sw="Zilizokamilika kwa wakati">Delivered on time</span></div>
+        <div class="stat"><span class="n">29</span><span class="l" data-sw="Zilizochelewa au kusimama">Overdue or stalled</span></div>
+      </div>
+
+      <input type="text" class="search-input" placeholder="Search promises..." data-sw-placeholder="Tafuta ahadi..." aria-label="Search promises">
+      <div class="filter-row">
+        <button class="filter-btn active" data-status="all" data-sw="Zote">All</button>
+        <button class="filter-btn" data-status="overdue" data-sw="Zilizochelewa">Overdue</button>
+        <button class="filter-btn" data-status="delivered" data-sw="Zilizokamilika">Delivered</button>
+        <button class="filter-btn" data-status="pending" data-sw="Zinazosubiri">Pending</button>
+      </div>
+
+      <div class="cases">
+        <div class="case flag-red" data-status="overdue">
+          <div class="case-top">
+            <p class="case-title">Nairobi–Mombasa highway expansion</p>
+            <span class="tag red">Overdue</span>
+          </div>
+          <p class="case-body">Promised complete by March 2026 in a January briefing. Site visits this month show roughly a third of the road surfaced.</p>
+          <div class="case-meta"><span>Promised Jan 2026</span><span>4 sources</span></div>
+        </div>
+        <div class="case flag-red" data-status="overdue">
+          <div class="case-top">
+            <p class="case-title">Kisumu fertilizer plant reopening</p>
+            <span class="tag red">Overdue</span>
+          </div>
+          <p class="case-body">Reopening within six months was announced at a county rally. Plant remains closed with no new site activity.</p>
+          <div class="case-meta"><span>Promised Nov 2025</span><span>3 sources</span></div>
+        </div>
+        <div class="case flag-olive" data-status="delivered">
+          <div class="case-top">
+            <p class="case-title">Eldoret water supply upgrade</p>
+            <span class="tag olive">Delivered</span>
+          </div>
+          <p class="case-body">Completed within the stated window, confirmed by two independent site visits.</p>
+          <div class="case-meta"><span>Promised Feb 2026</span><span>2 sources</span></div>
+        </div>
+      </div>
+      <p class="no-results" data-sw="Hakuna ahadi zinazofanana.">No matching promises.</p>
+    </section>
+
+    <!-- NEWS -->
+    <section class="panel" id="panel-news">
+      <p class="eyebrow" data-sw="MPYA">LATEST</p>
+      <h2 class="headline" data-sw="Habari">News</h2>
+      <p class="lede" data-sw="Mfululizo wa masasisho katika kila kifuatiliaji, pamoja na taarifa za nje zinazofaa kusomwa pamoja na zetu.">A running feed of updates across every tracker, plus outside reporting worth reading alongside ours.</p>
+
+      <input type="text" class="search-input" placeholder="Search news..." data-sw-placeholder="Tafuta habari..." aria-label="Search news">
+
+      <div class="cases">
+        <div class="case flag-red" data-status="internal">
+          <div class="case-top">
+            <p class="case-title">New entry added to the corruption tracker</p>
+            <span class="tag red">Corruption</span>
+          </div>
+          <p class="case-body">County road fund case updated with two additional procurement documents obtained this week.</p>
+          <div class="case-meta"><span>Today</span><span>Internal update</span></div>
+        </div>
+        <div class="case flag-amber" data-status="internal">
+          <div class="case-top">
+            <p class="case-title">Statement issued on Kisumu plant reopening delay</p>
+            <span class="tag amber">In 6 months</span>
+          </div>
+          <p class="case-body">Ministry spokesperson responds to inquiries; response logged alongside the original promise.</p>
+          <div class="case-meta"><span>2 days ago</span><span>Internal update</span></div>
+        </div>
+        <div class="case flag-olive" data-status="external">
+          <div class="case-top">
+            <p class="case-title">Independent outlet corroborates Mathare timeline</p>
+            <span class="tag olive">Killings</span>
+          </div>
+          <p class="case-body">External reporting aligns with witness statements already logged in our tracker.</p>
+          <div class="case-meta"><span>4 days ago</span><span>External source</span></div>
+        </div>
+      </div>
+      <p class="no-results" data-sw="Hakuna habari zinazofanana.">No matching news.</p>
+
+      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na masasisho halisi kabla ya kuchapisha.">Sample entries shown for layout only — replace with real, dated updates before publishing.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="panel" id="panel-contact">
+      <p class="eyebrow" data-sw="WASILIANA NASI">GET IN TOUCH</p>
+      <h2 class="headline" data-sw="Wasiliana nasi">Contact us</h2>
+      <p class="lede" data-sw="Una hati, ushahidi, au taarifa? Tutumie ujumbe, au wasiliana nasi moja kwa moja kupitia barua pepe au mitandao ya kijamii.">Have a document, evidence, or a tip? Send us a message, or reach us directly by email or social media.</p>
+
+      <div class="contact-grid">
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="cf-name" data-sw="Jina">Name</label>
+            <input type="text" id="cf-name" name="name">
+            <p class="form-error" data-field="name" data-sw="Tafadhali jaza jina lako.">Please enter your name.</p>
+          </div>
+          <div class="form-group">
+            <label for="cf-email" data-sw="Barua pepe">Email</label>
+            <input type="email" id="cf-email" name="email">
+            <p class="form-error" data-field="email" data-sw="Tafadhali jaza barua pepe sahihi.">Please enter a valid email.</p>
+          </div>
+          <div class="form-group">
+            <label for="cf-message" data-sw="Ujumbe">Message</label>
+            <textarea id="cf-message" name="message"></textarea>
+            <p class="form-error" data-field="message" data-sw="Tafadhali andika ujumbe wako.">Please enter a message.</p>
+          </div>
+          <p class="form-success" id="cf-success" data-sw="Asante. Ujumbe wako umepokelewa.">Thank you. Your message has been received.</p>
+          <button type="submit" class="send-btn" data-sw="Tuma ujumbe">Send message</button>
+        </form>
+
+        <div class="contact-info">
+          <h3 data-sw="Wasiliana moja kwa moja">Direct contact</h3>
+          <a class="email-link" href="mailto:tips@hatujasahau.org">tips@hatujasahau.org</a>
+          <ul class="social-list">
+            <li><a href="https://twitter.com/hatujasahau" target="_blank" rel="noopener">X (Twitter) <span class="handle">@hatujasahau</span></a></li>
+            <li><a href="https://facebook.com/hatujasahau" target="_blank" rel="noopener">Facebook <span class="handle">/hatujasahau</span></a></li>
+            <li><a href="https://instagram.com/hatujasahau" target="_blank" rel="noopener">Instagram <span class="handle">@hatujasahau</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="panel" id="panel-about">
+      <p class="eyebrow" data-sw="MBINU">METHODOLOGY</p>
+      <h2 class="headline" data-sw="Kuhusu Hatujasahau">About Hatujasahau</h2>
+      <p class="lede" data-sw="Rekodi ya kile serikali ilisema itafanya, na kile ilichofanya kweli — ili kisisahauliwe kimya kimya.">A record of what the government said it would do, and what it actually did — kept so it can't quietly be forgotten.</p>
+
+      <div class="about-grid">
+        <div>
+          <h3 data-sw="Tunachofanya">What we do</h3>
+          <p data-sw="Tunarekodi ahadi za umma, maamuzi ya matumizi ya fedha, na matukio yaliyothibitishwa, na kuyafuatilia hadi yapate matokeo wazi. Kila dai kwenye tovuti hii linaunganishwa na chanzo cha msingi: hati, rekodi ya mahakama, rekodi iliyothibitishwa, au taarifa huru.">We log public promises, spending decisions, and documented incidents, and revisit each one until it has a clear outcome. Every claim on this site links to a primary source: a document, a court record, a verified recording, or independent reporting.</p>
+          <h3 data-sw="Tusichofanya">What we don't do</h3>
+          <p data-sw="Hatuchapishi mashtaka ambayo hayajathibitishwa, na tunatenganisha uchambuzi wetu kutoka kwa ukweli wa msingi kwa uwazi, ili wasomaji waweze kutofautisha kati ya hizo mbili kwa haraka.">We don't publish unverified accusations, and we separate our own analysis from the underlying facts clearly, so readers can tell the two apart at a glance.</p>
+        </div>
+        <div>
+          <div class="principle"><span class="k">01</span><span data-sw="Kila ingizo lina chanzo">Every entry is sourced</span></div>
+          <div class="principle"><span class="k">02</span><span data-sw="Ukweli na maoni yametofautishwa kwa mwonekano">Fact and commentary are kept visually distinct</span></div>
+          <div class="principle"><span class="k">03</span><span data-sw="Maingizo yanasasishwa ushahidi mpya ukipatikana">Entries are updated as new evidence appears</span></div>
+          <div class="principle"><span class="k">04</span><span data-sw="Marekebisho yanarekodiwa, hayabadilishwi kimya kimya">Corrections are logged, not silently edited</span></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" data-sw="HATUJASAHAU — rekodi ya umma, inayowekwa wazi">HATUJASAHAU — a public record, kept in the open</div>
+</footer>
+
+<script>
+  var buttons = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.getAttribute('data-tab');
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('panel-' + target).classList.add('active');
+    });
+  });
+
+  // Search + status filter, scoped to each panel independently
+  panels.forEach(function(panel){
+    var input = panel.querySelector('.search-input');
+    var filterBtns = panel.querySelectorAll('.filter-btn');
+    var cases = panel.querySelectorAll('.case');
+    var noResults = panel.querySelector('.no-results');
+    if (!input && filterBtns.length === 0) return;
+
+    var activeStatus = 'all';
+
+    function apply(){
+      var q = (input && input.value ? input.value : '').toLowerCase().trim();
+      var anyVisible = false;
+      cases.forEach(function(c){
+        var text = c.textContent.toLowerCase();
+        var status = c.getAttribute('data-status');
+        var matchesText = !q || text.indexOf(q) !== -1;
+        var matchesStatus = activeStatus === 'all' || status === activeStatus;
+        var visible = matchesText && matchesStatus;
+        c.style.display = visible ? '' : 'none';
+        if (visible) anyVisible = true;
+      });
+      if (noResults) noResults.style.display = (!anyVisible && cases.length > 0) ? 'block' : 'none';
+    }
+
+    if (input) input.addEventListener('input', apply);
+    filterBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        filterBtns.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        activeStatus = btn.getAttribute('data-status');
+        apply();
+      });
+    });
+  });
+
+  // Contact form validation
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm){
+    contactForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('cf-name');
+      var email = document.getElementById('cf-email');
+      var message = document.getElementById('cf-message');
+      var success = document.getElementById('cf-success');
+      var errors = contactForm.querySelectorAll('.form-error');
+      errors.forEach(function(err){ err.style.display = 'none'; });
+      success.style.display = 'none';
+
+      var valid = true;
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name.value.trim()){
+        contactForm.querySelector('[data-field="name"]').style.display = 'block';
+        valid = false;
+      }
+      if (!email.value.trim() || !emailPattern.test(email.value.trim())){
+        contactForm.querySelector('[data-field="email"]').style.display = 'block';
+        valid = false;
+      }
+      if (!message.value.trim()){
+        contactForm.querySelector('[data-field="message"]').style.display = 'block';
+        valid = false;
+      }
+      if (!valid) return;
+
+      success.style.display = 'block';
+      contactForm.reset();
+    });
+  }
+
+  // English / Swahili toggle
+  var langToggle = document.getElementById('langToggle');
+  var translatable = document.querySelectorAll('[data-sw]');
+  var placeholders = document.querySelectorAll('[data-sw-placeholder]');
+
+  translatable.forEach(function(el){ el.dataset.en = el.textContent; });
+  placeholders.forEach(function(el){ el.dataset.enPlaceholder = el.getAttribute('placeholder'); });
+
+  function setLang(lang){
+    translatable.forEach(function(el){
+      el.textContent = lang === 'sw' ? el.dataset.sw : el.dataset.en;
+    });
+    placeholders.forEach(function(el){
+      el.setAttribute('placeholder', lang === 'sw' ? el.dataset.swPlaceholder : el.dataset.enPlaceholder);
+    });
+    document.documentElement.lang = lang;
+    langToggle.dataset.lang = lang;
+    langToggle.textContent = lang === 'sw' ? 'SW / EN' : 'EN / SW';
+  }
+
+  langToggle.addEventListener('click', function(){
+    var current = langToggle.dataset.lang || 'en';
+    setLang(current === 'en' ? 'sw' : 'en');
+  });
+</script>
+
+</body>
+</html>
