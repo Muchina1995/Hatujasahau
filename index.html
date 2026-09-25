@@ -303,6 +303,7 @@
     font-family:'IBM Plex Sans',sans-serif;
   }
   .send-btn:hover{background:var(--ink-soft);}
+  .send-btn:disabled{opacity:0.6;cursor:default;}
   .contact-info h3{
     font-family:'Newsreader',serif;
     font-size:16px;
@@ -512,6 +513,12 @@
       <p class="no-results" data-sw="Hakuna kesi zinazofanana.">No matching cases.</p>
 
       <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
+
+      <p class="eyebrow" style="margin-top:36px;" data-sw="JARIBIO LA DATA HALISI">LIVE DATA TEST</p>
+      <p class="lede" style="margin-bottom:20px;" data-sw="Kipande hiki kinapata data halisi moja kwa moja kutoka Benki ya Dunia kuhusu deni la serikali ya Kenya — kuthibitisha kuwa muunganisho wa API unafanya kazi.">This block pulls live data directly from the World Bank's public API for Kenya's central government debt — confirming the API connection actually works.</p>
+      <div class="cases" id="live-debt-data">
+        <p class="no-results" style="display:block;" data-sw="Inapakia data halisi...">Loading live data…</p>
+      </div>
     </section>
 
     <!-- IN 6 MONTHS -->
@@ -609,7 +616,7 @@
       <p class="lede" data-sw="Una hati, ushahidi, au taarifa? Tutumie ujumbe, au wasiliana nasi moja kwa moja kupitia barua pepe au mitandao ya kijamii.">Have a document, evidence, or a tip? Send us a message, or reach us directly by email or social media.</p>
 
       <div class="contact-grid">
-        <form id="contactForm" novalidate>
+        <form id="contactForm" novalidate action="https://formspree.io/f/xoevlpey" method="POST">
           <div class="form-group">
             <label for="cf-name" data-sw="Jina">Name</label>
             <input type="text" id="cf-name" name="name">
@@ -626,6 +633,7 @@
             <p class="form-error" data-field="message" data-sw="Tafadhali andika ujumbe wako.">Please enter a message.</p>
           </div>
           <p class="form-success" id="cf-success" data-sw="Asante. Ujumbe wako umepokelewa.">Thank you. Your message has been received.</p>
+          <p class="form-error" id="cf-general-error" data-sw="Jambo limeharibika. Tafadhali tujumbe moja kwa moja kupitia barua pepe hapo chini.">Something went wrong sending your message. Please email us directly at the address below instead.</p>
           <button type="submit" class="send-btn" data-sw="Tuma ujumbe">Send message</button>
         </form>
 
@@ -719,7 +727,38 @@
     });
   });
 
-  // Contact form validation
+  // Live data test — pulls real Kenya government debt data from the World Bank API
+  var liveDataContainer = document.getElementById('live-debt-data');
+  if (liveDataContainer){
+    fetch('https://api.worldbank.org/v2/country/KEN/indicator/GC.DOD.TOTL.GD.ZS?format=json&per_page=20')
+      .then(function(res){ return res.json(); })
+      .then(function(json){
+        var rows = (json && json[1]) ? json[1] : [];
+        var withValues = rows.filter(function(r){ return r.value !== null; }).slice(0, 5);
+        if (!withValues.length){
+          liveDataContainer.innerHTML = '<p class="no-results" style="display:block;">No data returned from the API.</p>';
+          return;
+        }
+        liveDataContainer.innerHTML = '';
+        withValues.forEach(function(r){
+          var div = document.createElement('div');
+          div.className = 'case flag-amber';
+          div.innerHTML =
+            '<div class="case-top">' +
+              '<p class="case-title">Central government debt — ' + r.date + '</p>' +
+              '<span class="tag amber">' + r.value.toFixed(1) + '% of GDP</span>' +
+            '</div>' +
+            '<p class="case-body">Source: World Bank, World Development Indicators (GC.DOD.TOTL.GD.ZS). Fetched live from api.worldbank.org.</p>' +
+            '<div class="case-meta"><span>Live API result</span></div>';
+          liveDataContainer.appendChild(div);
+        });
+      })
+      .catch(function(err){
+        liveDataContainer.innerHTML = '<p class="no-results" style="display:block;">Could not load live data (' + err.message + ').</p>';
+      });
+  }
+
+  // Contact form validation + submission
   var contactForm = document.getElementById('contactForm');
   if (contactForm){
     contactForm.addEventListener('submit', function(e){
@@ -728,6 +767,8 @@
       var email = document.getElementById('cf-email');
       var message = document.getElementById('cf-message');
       var success = document.getElementById('cf-success');
+      var generalError = document.getElementById('cf-general-error');
+      var sendBtn = contactForm.querySelector('.send-btn');
       var errors = contactForm.querySelectorAll('.form-error');
       errors.forEach(function(err){ err.style.display = 'none'; });
       success.style.display = 'none';
@@ -749,8 +790,24 @@
       }
       if (!valid) return;
 
-      success.style.display = 'block';
-      contactForm.reset();
+      sendBtn.disabled = true;
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        sendBtn.disabled = false;
+        if (response.ok){
+          success.style.display = 'block';
+          contactForm.reset();
+        } else {
+          generalError.style.display = 'block';
+        }
+      }).catch(function(){
+        sendBtn.disabled = false;
+        generalError.style.display = 'block';
+      });
     });
   }
 

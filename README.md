@@ -76,6 +76,6 @@ git push
 
 ## Known limitations to plan for next
 
-- **The contact form doesn't send anywhere yet.** GitHub Pages is static-only and can't process form submissions. Before relying on it, wire the form's `action` to a service like [Formspree](https://formspree.io) (free tier, ~5 minute setup) — or switch hosting to Netlify, which has forms built in.
+- **Contact form is fully wired to Formspree** (`https://formspree.io/f/xoevlpey`). Submissions go to the email registered on that Formspree account. Free tier covers 50 submissions/month — worth checking Formspree's dashboard occasionally, or upgrading if the site gets real traffic.
 - **All content is hardcoded placeholder data** inside `index.html`. Before publishing real cases, replace the sample entries in the Killings, Corruption, In 6 months, and News sections with verified, sourced reporting.
 - **No calculated stats yet.** The numbers in the stat cards (148 cases, 37 promises, etc.) are typed in by hand, not computed from data. See the project notes on moving to a data-file + build-script approach when you're ready for that.
