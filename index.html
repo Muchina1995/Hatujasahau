@@ -9,152 +9,134 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#e7e3d7;
-    --paper-raised:#f1eee4;
-    --ink:#201d18;
-    --ink-soft:#4a453c;
-    --muted:#847d6d;
-    --line:#c7c0ab;
-    --red:#7d3128;
-    --red-bg:#ecd9d3;
-    --olive:#4c5323;
-    --olive-bg:#dfe2ca;
-    --amber:#8a5a1f;
-    --amber-bg:#ecdec4;
+    --bg:#12100e;
+    --card:#17130f;
+    --card-alt:#1c1713;
+    --card-recessed:#15110e;
+    --line:#2e2621;
+    --line-soft:#2a241f;
+    --line-dash:#3a322b;
+    --ink:#e9e2d6;
+    --ink-strong:#f6efe4;
+    --ink-soft:#f3ece1;
+    --body-soft:#d6cdbf;
+    --muted:#a89e90;
+    --muted-2:#7d7367;
+    --accent:#d4664a;
+    --accent-soft:#d9b7a6;
+    --link:#e0a58e;
+    --tag-red:#e08a70;
+    --tag-amber:#d9b36a;
+    --tag-green:#9fb885;
+    --tag-violet:#b8a6d9;
+    --tag-gray:#a89e90;
+    --success-border:#3d4a33;
+    --success-bg:#161a12;
+    --footer-bg:#0d0b0a;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--paper);
+    background:var(--bg);
     color:var(--ink);
     font-family:'IBM Plex Sans',sans-serif;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-  ::selection{background:var(--red);color:var(--paper-raised);}
+  ::selection{background:var(--accent);color:var(--bg);}
 
-  a{color:inherit;text-decoration:none;}
+  a{color:var(--link);text-decoration:none;}
+  a:hover{color:var(--ink-soft);}
   button{font-family:inherit;cursor:pointer;}
 
-  /* Hero */
+  .skip-link{position:absolute;left:-999px;top:auto;}
+  .skip-link:focus{left:12px;top:12px;background:var(--ink-strong);color:var(--bg);padding:8px 14px;border-radius:4px;z-index:100;}
+
+  .wrap{max-width:1096px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
   .hero{
-    position:relative;
-    background:#2b2620;
-    background-image:
-      repeating-linear-gradient(135deg, rgba(244,241,232,0.035) 0px, rgba(244,241,232,0.035) 1px, transparent 1px, transparent 22px),
-      radial-gradient(ellipse at 30% 20%, rgba(125,49,40,0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(76,83,35,0.3) 0%, transparent 55%);
-  }
-  .hero::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg, rgba(20,17,12,0.5) 0%, rgba(20,17,12,0.5) 100%);
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(12,10,9,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
   }
   .site-header{
-    position:relative;
-    z-index:1;
     display:flex;
     align-items:center;
-    gap:32px;
-    padding:22px 0;
-    border-bottom:1px solid rgba(244,241,232,0.18);
+    gap:24px;
+    min-height:56px;
+    padding:12px 0;
+    flex-wrap:wrap;
   }
   .site-logo{
     font-family:'Newsreader',serif;
     font-style:italic;
-    font-size:24px;
-    color:#f4f1e8;
-    flex-shrink:0;
+    font-size:26px;
+    color:var(--ink-soft);
+    flex:1;
   }
   .site-nav{
     display:flex;
-    flex:1 1 auto;
+    flex:0 1 auto;
     min-width:0;
     flex-wrap:wrap;
     justify-content:flex-end;
-    row-gap:10px;
-    column-gap:30px;
+    row-gap:6px;
+    column-gap:26px;
     align-items:center;
-    font-size:16px;
+    font-size:15px;
   }
   .site-nav button.tab-btn{
     background:none;
     border:none;
-    padding:0 0 5px;
-    color:rgba(244,241,232,0.82);
+    padding:17px 0 15px;
+    color:var(--muted);
     font-family:'IBM Plex Sans',sans-serif;
-    font-size:16px;
+    font-size:15px;
     letter-spacing:0;
     clip-path:none;
     top:0;
     white-space:nowrap;
-    border-bottom:1px solid transparent;
+    border-bottom:2px solid transparent;
   }
-  .site-nav button.tab-btn:hover{background:none;color:#f4f1e8;}
+  .site-nav button.tab-btn:hover{background:none;color:var(--ink-soft);}
   .site-nav button.tab-btn.active{
     background:none;
-    color:#f4f1e8;
-    border-bottom:1px solid #f4f1e8;
-    border-color:#f4f1e8;
+    color:var(--ink-strong);
+    border-bottom:2px solid var(--accent);
   }
   .site-cta{
-    background:transparent;
-    border:1px solid rgba(244,241,232,0.55);
-    padding:9px 18px;
-    border-radius:2px;
-    font-size:14.5px;
-    color:#f4f1e8;
+    background:var(--accent);
+    border:none;
+    padding:9px 16px;
+    border-radius:3px;
+    font-size:14px;
+    font-weight:500;
+    color:var(--bg);
     flex-shrink:0;
     white-space:nowrap;
   }
-  .site-cta:hover{border-color:#f4f1e8;background:rgba(244,241,232,0.08);}
-  .home-hero{
-    position:relative;
-    background:#2b2620;
-    background-image:
-      repeating-linear-gradient(135deg, rgba(244,241,232,0.035) 0px, rgba(244,241,232,0.035) 1px, transparent 1px, transparent 22px),
-      radial-gradient(ellipse at 30% 20%, rgba(125,49,40,0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(76,83,35,0.3) 0%, transparent 55%);
-    border-radius:12px;
-    padding:40px 32px;
-    margin-bottom:36px;
+  .site-cta:hover{background:var(--accent);opacity:0.9;}
+  .lang-toggle{
+    background:none;
+    border:1px solid var(--line-dash);
+    color:var(--ink);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:8px 12px;
+    border-radius:3px;
+    flex-shrink:0;
   }
-  .home-hero .line1{
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:16px;
-    color:#f4f1e8;
-    margin:0 0 6px;
-  }
-  .home-hero .line2{
-    font-family:'Newsreader',serif;
-    font-style:italic;
-    font-size:clamp(28px,5vw,40px);
-    color:#f4f1e8;
-    margin:0;
-  }
-
-  .mission{
-    font-family:'Newsreader',serif;
-    font-size:17px;
-    line-height:1.75;
-    color:var(--ink-soft);
-    max-width:70ch;
-    margin:0 0 40px;
-    padding-bottom:32px;
-    border-bottom:1px dashed var(--line);
-  }
-
-  .skip-link{position:absolute;left:-999px;top:auto;}
-  .skip-link:focus{left:12px;top:12px;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:4px;z-index:100;}
-
-  .wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+  .lang-toggle:hover{border-color:var(--muted);}
+  .site-nav button.tab-btn:focus-visible{outline:1px solid var(--ink-strong);outline-offset:3px;}
 
   main{
-    background:var(--paper-raised);
-    border-bottom:1px solid var(--line);
+    background:var(--bg);
     min-height:520px;
-    padding:40px 0 64px;
+    padding:40px 0 96px;
   }
   section.panel{display:none;}
   section.panel.active{display:block;animation:fade 0.25s ease;}
@@ -162,214 +144,397 @@
 
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
-    font-size:11.5px;
-    color:var(--red);
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
     margin:0 0 10px;
   }
   h2.headline{
     font-family:'Newsreader',serif;
-    font-weight:500;
-    font-size:30px;
+    font-weight:400;
+    font-size:40px;
     margin:0 0 12px;
     max-width:34ch;
     line-height:1.2;
+    letter-spacing:-0.01em;
+    color:var(--ink-strong);
   }
   p.lede{
-    font-size:15.5px;
-    color:var(--ink-soft);
+    font-size:17px;
+    line-height:1.6;
+    color:var(--muted);
     max-width:62ch;
     margin:0 0 32px;
   }
 
+  /* Home hero */
+  .home-hero{
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    border:1px solid var(--line);
+    padding:56px 40px 64px;
+    background:
+      radial-gradient(ellipse 60% 120% at 12% 0%, rgba(150,52,34,0.45), transparent 60%),
+      radial-gradient(ellipse 50% 100% at 85% 100%, rgba(70,72,40,0.35), transparent 60%),
+      repeating-linear-gradient(-55deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 44px),
+      #1a1512;
+    margin-bottom:36px;
+  }
+  .home-hero .line1{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 18px;
+  }
+  .home-hero .line2{
+    font-family:'Newsreader',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(40px,7vw,76px);
+    line-height:1;
+    letter-spacing:-0.02em;
+    color:var(--ink-strong);
+    margin:0;
+  }
+
+  .mission-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:48px;
+    margin-bottom:32px;
+    padding-bottom:32px;
+    border-bottom:1px dashed var(--line-dash);
+  }
+  .mission{
+    grid-column:span 2;
+    font-family:'Newsreader',serif;
+    font-size:19px;
+    line-height:1.7;
+    color:var(--body-soft);
+    margin:0;
+    max-width:none;
+  }
+  .pull-quote{
+    border-left:1px solid var(--line-soft);
+    padding-left:28px;
+    align-self:start;
+    font-family:'Newsreader',serif;
+    font-style:italic;
+    font-size:24px;
+    line-height:1.3;
+    color:var(--ink-soft);
+  }
+  .pull-quote .bar{width:32px;height:2px;background:var(--accent);margin-top:18px;}
+  @media (max-width:760px){
+    .mission{grid-column:span 1;}
+  }
+
+  .featured-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:6px;
+    font-size:15px;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:500;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    border-bottom:1px solid var(--accent);
+    padding:0 0 3px;
+  }
+  .featured-link .arrow{color:var(--accent);}
+
   /* Stat strip */
   .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
     border:1px solid var(--line);
-    border-radius:2px;
+    border-radius:6px;
     margin-bottom:36px;
     overflow:hidden;
+    background:var(--card);
   }
-  .stat{padding:18px 20px;border-right:1px solid var(--line);}
+  .stat{
+    padding:26px 24px;
+    border-right:1px solid var(--line);
+    text-align:left;
+    background:none;
+    border-top:none;
+    border-bottom:none;
+    border-left:none;
+    color:inherit;
+    display:block;
+    width:100%;
+  }
   .stat:last-child{border-right:none;}
-  .stat .n{font-family:'Newsreader',serif;font-size:30px;font-weight:600;display:block;}
-  .stat .l{font-size:12.5px;color:var(--muted);}
+  .stat:hover{background:var(--card-alt);}
+  .stat .n{font-family:'Newsreader',serif;font-size:38px;font-weight:400;display:block;color:var(--ink-strong);}
+  .stat .l{font-size:14px;color:var(--muted);margin-top:10px;display:block;}
 
-  /* Case file cards */
-  .cases{display:flex;flex-direction:column;gap:14px;}
+  /* Case cards */
+  .cases{display:flex;flex-direction:column;gap:12px;}
   .case{
     border:1px solid var(--line);
-    border-left:3px solid var(--muted);
-    background:var(--paper);
-    border-radius:2px;
-    padding:18px 22px;
+    background:var(--card);
+    border-radius:6px;
+    padding:22px 26px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px 24px;
   }
-  .case.flag-red{border-left-color:var(--red);}
-  .case.flag-olive{border-left-color:var(--olive);}
-  .case.flag-amber{border-left-color:var(--amber);}
-  .case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px;}
-  .case-title{font-family:'Newsreader',serif;font-size:18px;font-weight:500;margin:0;}
+  .case-top{display:contents;}
+  .case-title{
+    font-family:'Newsreader',serif;
+    font-size:22px;
+    font-weight:400;
+    margin:0;
+    color:var(--ink-strong);
+    grid-column:1;
+  }
   .tag{
     font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:0.03em;
-    padding:3px 9px;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:4px 9px;
     border-radius:2px;
     white-space:nowrap;
+    background:transparent;
+    border:1px solid currentColor;
+    align-self:start;
+    grid-column:2;
   }
-  .tag.red{background:var(--red-bg);color:var(--red);}
-  .tag.olive{background:var(--olive-bg);color:var(--olive);}
-  .tag.amber{background:var(--amber-bg);color:var(--amber);}
-  .case-body{font-size:14px;color:var(--ink-soft);margin:0 0 12px;max-width:64ch;}
-  .case-meta{display:flex;gap:18px;font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;}
+  .tag.red{color:var(--tag-red);}
+  .tag.amber{color:var(--tag-amber);}
+  .tag.olive{color:var(--tag-green);}
+  .tag.violet{color:var(--tag-violet);}
+  .tag.gray{color:var(--tag-gray);}
+  .case-body{grid-column:1 / -1;font-size:15px;color:var(--muted);margin:0;max-width:70ch;line-height:1.6;}
+  .case-meta{grid-column:1 / -1;display:flex;gap:18px;font-size:12px;color:var(--muted-2);font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;margin-top:2px;}
 
   .divider-note{
-    font-size:12.5px;
-    color:var(--muted);
-    border-top:1px dashed var(--line);
-    padding-top:14px;
-    margin-top:28px;
+    font-size:12px;
+    color:var(--muted-2);
+    font-family:'IBM Plex Mono',monospace;
+    margin-top:20px;
   }
+
+  .twitter-embed-wrap{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--card);
+    padding:4px;
+    max-width:520px;
+  }
+
+  /* Live data panel */
+  .debt-panel{
+    margin-top:48px;
+    padding:26px 28px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--card-recessed);
+  }
+  .debt-panel-head{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    align-items:baseline;
+  }
+  .debt-panel-head .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .debt-panel-head .source{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--muted-2);
+  }
+  .debt-grid{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+    gap:16px;
+  }
+  .debt-item{padding-top:12px;border-top:1px solid var(--line);}
+  .debt-item .year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted-2);}
+  .debt-item .value{margin-top:6px;font-family:'Newsreader',serif;font-size:26px;color:var(--ink-strong);}
+  .debt-status{margin-top:12px;font-size:13px;color:var(--muted-2);}
 
   /* Search + filter */
   .search-input{
     width:100%;
     padding:10px 14px;
-    border:1px solid var(--line);
-    border-radius:2px;
-    background:var(--paper);
+    border:1px solid var(--line-dash);
+    border-radius:4px;
+    background:var(--card);
     font-family:'IBM Plex Sans',sans-serif;
     font-size:13.5px;
     color:var(--ink);
     margin-bottom:14px;
   }
-  .search-input::placeholder{color:var(--muted);}
-  .search-input:focus{outline:none;border-color:var(--ink-soft);}
-  .filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .search-input::placeholder{color:var(--muted-2);}
+  .search-input:focus{outline:none;border-color:var(--muted);}
+  .filter-row{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap;}
   .filter-btn{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    padding:6px 14px;
-    border:1px solid var(--line);
-    background:var(--paper);
-    color:var(--ink-soft);
-    border-radius:2px;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:14px;
+    padding:8px 16px;
+    border:1px solid var(--line-dash);
+    background:transparent;
+    color:var(--body-soft);
+    border-radius:999px;
   }
-  .filter-btn:hover{background:var(--paper-raised);}
-  .filter-btn.active{background:var(--ink);color:var(--paper-raised);border-color:var(--ink);}
-  .no-results{font-size:13px;color:var(--muted);padding:18px 0;display:none;}
+  .filter-btn:hover{border-color:var(--muted);}
+  .filter-btn.active{background:var(--ink-soft);color:var(--bg);border-color:var(--ink-soft);}
+  .no-results{
+    font-size:13px;
+    color:var(--muted-2);
+    padding:40px;
+    text-align:center;
+    border:1px dashed var(--line-dash);
+    border-radius:6px;
+    display:none;
+  }
 
   /* Contact page */
-  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;}
-  .form-group{margin-bottom:16px;}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:48px;align-items:start;margin-top:8px;}
+  .form-group{margin-bottom:20px;}
   .form-group label{
     display:block;
-    font-size:12.5px;
-    color:var(--ink-soft);
-    margin-bottom:6px;
-    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    color:var(--body-soft);
+    margin-bottom:8px;
+    font-family:'IBM Plex Sans',sans-serif;
   }
   .form-group input,
   .form-group textarea{
     width:100%;
-    padding:10px 14px;
-    border:1px solid var(--line);
-    border-radius:2px;
-    background:var(--paper);
+    padding:12px 14px;
+    border:1px solid var(--line-dash);
+    border-radius:4px;
+    background:var(--card);
     font-family:'IBM Plex Sans',sans-serif;
     font-size:14px;
-    color:var(--ink);
+    color:var(--ink-soft);
   }
   .form-group input:focus,
-  .form-group textarea:focus{outline:none;border-color:var(--ink-soft);}
+  .form-group textarea:focus{outline:none;border-color:var(--muted);}
   .form-group textarea{resize:vertical;min-height:110px;}
-  .form-error{font-size:12.5px;color:var(--red);margin-top:5px;display:none;}
+  .form-error{font-size:13px;color:var(--tag-red);margin-top:6px;display:none;}
   .form-success{
-    font-size:13.5px;
-    color:var(--olive);
-    background:var(--olive-bg);
-    border-radius:2px;
-    padding:10px 14px;
+    font-size:14px;
+    color:var(--ink-strong);
+    background:var(--success-bg);
+    border:1px solid var(--success-border);
+    border-radius:6px;
+    padding:24px 28px;
     margin-bottom:16px;
     display:none;
   }
   .send-btn{
-    border:1px solid var(--ink);
-    background:var(--ink);
-    color:var(--paper-raised);
-    padding:10px 22px;
-    border-radius:2px;
-    font-size:13.5px;
+    border:none;
+    background:var(--accent);
+    color:var(--bg);
+    padding:12px 22px;
+    border-radius:3px;
+    font-size:15px;
+    font-weight:500;
     font-family:'IBM Plex Sans',sans-serif;
   }
-  .send-btn:hover{background:var(--ink-soft);}
-  .send-btn:disabled{opacity:0.6;cursor:default;}
+  .send-btn:hover{opacity:0.9;}
+  .send-btn:disabled{opacity:0.5;cursor:default;}
+  .contact-info{
+    padding:28px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--card);
+    align-self:start;
+  }
   .contact-info h3{
     font-family:'Newsreader',serif;
-    font-size:16px;
-    font-weight:500;
-    margin:0 0 12px;
+    font-size:22px;
+    font-weight:400;
+    color:var(--ink-strong);
+    margin:0 0 16px;
   }
   .contact-info .email-link{
     display:inline-block;
-    font-size:14.5px;
-    color:var(--red);
-    margin-bottom:24px;
+    font-size:16px;
+    color:var(--link);
+    margin-bottom:0;
   }
-  .social-list{list-style:none;margin:0;padding:0;}
-  .social-list li{border-top:1px solid var(--line);}
-  .social-list li:first-child{border-top:none;}
+  .social-list{list-style:none;margin:20px 0 0;padding:20px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;}
+  .social-list li{border-top:none;}
   .social-list a{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:12px 0;
+    padding:0;
     font-size:14px;
-    color:var(--ink);
+    color:var(--body-soft);
   }
-  .social-list a:hover{color:var(--red);}
-  .social-list .handle{color:var(--muted);font-size:12.5px;font-family:'IBM Plex Mono',monospace;}
-
-  /* Language toggle */
-  .lang-toggle{
-    background:none;
-    border:1px solid rgba(244,241,232,0.4);
-    color:#f4f1e8;
-    font-size:13.5px;
-    padding:8px 12px;
-    border-radius:2px;
-    flex-shrink:0;
-  }
-  .lang-toggle:hover{border-color:#f4f1e8;}
+  .social-list a:hover{color:var(--ink-soft);}
+  .social-list .handle{color:var(--muted-2);font-size:12.5px;font-family:'IBM Plex Mono',monospace;}
 
   /* About page */
-  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;}
-  .about-grid h3{font-family:'Newsreader',serif;font-size:17px;font-weight:500;margin:0 0 8px;}
-  .about-grid p{font-size:14.5px;color:var(--ink-soft);margin:0 0 22px;}
-  .principle{margin-bottom:18px;}
-  .principle .k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);display:block;margin-bottom:4px;}
+  p.lede-italic{
+    font-family:'Newsreader',serif;
+    font-style:italic;
+    font-size:22px;
+    line-height:1.5;
+    color:var(--body-soft);
+    max-width:62ch;
+    margin:0 0 32px;
+  }
+  .about-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:48px;margin-bottom:48px;}
+  .about-grid h3{font-family:'Newsreader',serif;font-size:26px;font-weight:400;margin:0 0 12px;color:var(--ink-strong);}
+  .about-grid p{font-size:16px;line-height:1.7;color:var(--muted);margin:0;}
+  .principles{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--card);
+  }
+  .principle{padding:26px;border-right:1px solid var(--line);margin-bottom:0;}
+  .principle .k{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);display:block;margin-bottom:12px;}
+  .principle span:last-child{font-family:'Newsreader',serif;font-size:19px;line-height:1.35;color:var(--ink-soft);}
 
   footer{
     text-align:center;
-    padding:26px 0 40px;
+    padding:0;
     font-size:12px;
-    color:var(--muted);
+    color:var(--muted-2);
     font-family:'IBM Plex Mono',monospace;
+    background:var(--footer-bg);
+    border-top:1px solid var(--line-soft);
   }
-
-  .site-nav button.tab-btn:focus-visible{outline:1px solid #f4f1e8;outline-offset:3px;}
-
-  @media (min-width:860px){
-    .cases{display:grid;grid-template-columns:repeat(2, 1fr);gap:16px;}
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+    padding:28px 24px;
+    text-align:left;
   }
+  footer .footer-logo{font-family:'Newsreader',serif;font-style:italic;font-size:19px;color:var(--ink-soft);}
 
   @media (max-width:640px){
     .site-header{flex-wrap:wrap;}
     .site-nav{justify-content:flex-start;width:100%;order:3;}
-    .stats{grid-template-columns:1fr;}
-    .stat{border-right:none;border-bottom:1px solid var(--line);}
-    .stat:last-child{border-bottom:none;}
-    .about-grid{grid-template-columns:1fr;}
+    .home-hero{padding:40px 24px 48px;}
   }
   @media (prefers-reduced-motion: reduce){
     section.panel.active{animation:none;}
@@ -387,7 +552,7 @@
       <button class="tab-btn active" data-tab="home" data-sw="Nyumbani">Home</button>
       <button class="tab-btn" data-tab="killings" data-sw="Mauaji">Killings</button>
       <button class="tab-btn" data-tab="corruption" data-sw="Ufisadi">Corruption</button>
-      <button class="tab-btn" data-tab="sixmonths" data-sw="Miezi 6">In 6 months</button>
+      <button class="tab-btn" data-tab="sixmonths" data-sw="Ndani ya miezi 6">In 6 months</button>
       <button class="tab-btn" data-tab="news" data-sw="Habari">News</button>
       <button class="tab-btn" data-tab="about" data-sw="Kuhusu sisi">About us</button>
     </nav>
@@ -406,16 +571,20 @@
         <p class="line2" data-sw="Haki kwetu.">Justice to us.</p>
       </div>
 
-      <p class="mission" data-sw="Tunasimamia haki, ukweli, na uwajibikaji. Dhamira yetu ni kutafuta haki kwa maisha ya watu wasio na hatia yaliyopotea kwa vurugu za kisiasa, ukatili wa polisi, na matumizi mabaya ya mamlaka ya serikali. Kila maisha yaliyopotea kinyume cha sheria ni jeraha kwa taifa letu, na kila kifo kisichojibiwa kinazidisha dhuluma hiyo. Tunasema kwa ajili ya wale waliofanywa kimya, tunawaheshimu waliopotea, na tunadai uwajibikaji kutoka kwa wale waliokabidhiwa mamlaka. Haki si hisani inayotolewa na mamlaka — ni haki inayostahili kila raia. Mpaka ukweli utambuliwe na haki itolewe, tutaendelea kusimama, kusema, na kutafuta Kenya ambapo maisha ya binadamu yanaheshimiwa na utawala wa sheria unadumu.">We stand for justice, truth, and accountability. Our mission is to seek justice for innocent lives lost to political violence, police brutality, and abuse of state power. Every life taken unjustly is a wound to our nation, and every unanswered death deepens that injustice. We speak for the silenced, honor the fallen, and demand accountability from those entrusted with authority. Justice is not a favor granted by power — it is a right owed to every citizen. Until truth is acknowledged and justice is served, we will continue to stand, to speak, and to seek a Kenya where human life is respected and the rule of law prevails.</p>
+      <div class="mission-grid">
+        <p class="mission" data-sw="Tunasimamia haki, ukweli, na uwajibikaji. Dhamira yetu ni kutafuta haki kwa maisha ya watu wasio na hatia yaliyopotea kwa vurugu za kisiasa, ukatili wa polisi, na matumizi mabaya ya mamlaka ya serikali. Kila maisha yaliyopotea kinyume cha sheria ni jeraha kwa taifa letu, na kila kifo kisichojibiwa kinazidisha dhuluma hiyo. Tunasema kwa ajili ya wale waliofanywa kimya, tunawaheshimu waliopotea, na tunadai uwajibikaji kutoka kwa wale waliokabidhiwa mamlaka. Haki si hisani inayotolewa na mamlaka — ni haki inayostahili kila raia. Mpaka ukweli utambuliwe na haki itolewe, tutaendelea kusimama, kusema, na kutafuta Kenya ambapo maisha ya binadamu yanaheshimiwa na utawala wa sheria unadumu.">We stand for justice, truth, and accountability. Our mission is to seek justice for innocent lives lost to political violence, police brutality, and abuse of state power. Every life taken unjustly is a wound to our nation, and every unanswered death deepens that injustice. We speak for the silenced, honor the fallen, and demand accountability from those entrusted with authority. Justice is not a favor granted by power — it is a right owed to every citizen. Until truth is acknowledged and justice is served, we will continue to stand, to speak, and to seek a Kenya where human life is respected and the rule of law prevails.</p>
+        <aside class="pull-quote"><span data-sw="&#8220;Kila maisha yaliyopotea kinyume cha sheria ni jeraha kwa taifa letu.&#8221;">&#8220;Every life taken unjustly is a wound to our nation.&#8221;</span><div class="bar"></div></aside>
+      </div>
 
       <p class="eyebrow" data-sw="UCHUNGUZI MAALUM">FEATURED INVESTIGATION</p>
       <h2 class="headline" data-sw="Mfuko wa barabara za kaunti: shilingi bilioni 2.3, asilimia 40 ya miradi haijakamilika">County road fund: 2.3 billion shillings, 40% of projects incomplete</h2>
       <p class="lede" data-sw="Kumbukumbu za ununuzi zimelinganishwa na ziara za maeneo katika kaunti sita. Nyaraka kumi na mbili za chanzo.">Procurement records cross-referenced against site visits across six counties. Twelve source documents.</p>
+      <button type="button" class="featured-link tab-btn" data-tab="corruption"><span data-sw="Soma uchunguzi">Read the investigation</span> <span class="arrow">&rarr;</span></button>
 
-      <div class="stats">
-        <div class="stat"><span class="n">148</span><span class="l" data-sw="Kesi za ufisadi zilizorekodiwa">Corruption cases logged</span></div>
-        <div class="stat"><span class="n">37</span><span class="l" data-sw="Ahadi za miezi sita zinazofuatiliwa">Six-month promises tracked</span></div>
-        <div class="stat"><span class="n">—</span><span class="l" data-sw="Mauaji yaliyorekodiwa, tazama kichupo">Killings documented, see tab</span></div>
+      <div class="stats" style="margin-top:56px;">
+        <button type="button" class="tab-btn stat" data-tab="corruption"><span class="n">148</span><span class="l" data-sw="Kesi za ufisadi zilizorekodiwa">Corruption cases logged</span></button>
+        <button type="button" class="tab-btn stat" data-tab="sixmonths"><span class="n">37</span><span class="l" data-sw="Ahadi za miezi sita zinazofuatiliwa">Six-month promises tracked</span></button>
+        <button type="button" class="tab-btn stat" data-tab="killings"><span class="n">&mdash;</span><span class="l" data-sw="Mauaji yaliyorekodiwa, tazama kichupo">Killings documented, see tab</span></button>
       </div>
 
       <p class="eyebrow" style="margin-bottom:16px;" data-sw="MAINGIZO MAPYA">LATEST ENTRIES</p>
@@ -431,7 +600,7 @@
         <div class="case flag-amber">
           <div class="case-top">
             <p class="case-title">Timeline: new external borrowing this fiscal year</p>
-            <span class="tag amber">Debt</span>
+            <span class="tag gray">Debt</span>
           </div>
           <p class="case-body">A running log of new loan agreements disclosed to parliament, compared against Treasury statements.</p>
           <div class="case-meta"><span>5 days ago</span><span>6 sources</span></div>
@@ -439,7 +608,7 @@
         <div class="case flag-olive">
           <div class="case-top">
             <p class="case-title">Video: eyewitness accounts from Mathare, verified</p>
-            <span class="tag olive">Killings</span>
+            <span class="tag violet">Killings</span>
           </div>
           <p class="case-body">Footage geolocated and cross-checked against two independent witness statements.</p>
           <div class="case-meta"><span>1 week ago</span><span>3 sources</span></div>
@@ -518,10 +687,15 @@
 
       <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
 
-      <p class="eyebrow" style="margin-top:36px;" data-sw="JARIBIO LA DATA HALISI">LIVE DATA TEST</p>
-      <p class="lede" style="margin-bottom:20px;" data-sw="Kipande hiki kinapata data halisi moja kwa moja kutoka Benki ya Dunia kuhusu deni la nje la Kenya — kuthibitisha kuwa muunganisho wa API unafanya kazi.">This block pulls live data directly from the World Bank's public API for Kenya's external debt — confirming the API connection actually works.</p>
-      <div class="cases" id="live-debt-data">
-        <p class="no-results" style="display:block;" data-sw="Inapakia data halisi...">Loading live data…</p>
+      <div class="debt-panel">
+        <div class="debt-panel-head">
+          <span class="label" data-sw="DATA HALISI &middot; DENI LA NJE LA KENYA">LIVE DATA &middot; KENYA EXTERNAL DEBT</span>
+          <span class="source" data-sw="Chanzo: API ya Benki ya Dunia">Source: World Bank API</span>
+        </div>
+        <div class="debt-grid" id="live-debt-data">
+          <div class="debt-item"><span class="year">&middot;&middot;&middot;&middot;</span><span class="value">&mdash;</span></div>
+        </div>
+        <p class="debt-status" id="live-debt-status" data-sw="Inapakia data halisi&hellip;">Loading live data&hellip;</p>
       </div>
     </section>
 
@@ -581,9 +755,15 @@
       <p class="lede" data-sw="Mfululizo wa masasisho katika kila kifuatiliaji, pamoja na taarifa za nje zinazofaa kusomwa pamoja na zetu.">A running feed of updates across every tracker, plus outside reporting worth reading alongside ours.</p>
 
       <input type="text" class="search-input" placeholder="Search news..." data-sw-placeholder="Tafuta habari..." aria-label="Search news">
+      <div class="filter-row">
+        <button class="filter-btn active" data-status="all" data-sw="Zote">All</button>
+        <button class="filter-btn" data-status="corruption" data-sw="Ufisadi">Corruption</button>
+        <button class="filter-btn" data-status="sixmonths" data-sw="Ndani ya miezi 6">In 6 months</button>
+        <button class="filter-btn" data-status="killings" data-sw="Mauaji">Killings</button>
+      </div>
 
       <div class="cases">
-        <div class="case flag-red" data-status="internal">
+        <div class="case flag-red" data-status="corruption">
           <div class="case-top">
             <p class="case-title">New entry added to the corruption tracker</p>
             <span class="tag red">Corruption</span>
@@ -591,7 +771,7 @@
           <p class="case-body">County road fund case updated with two additional procurement documents obtained this week.</p>
           <div class="case-meta"><span>Today</span><span>Internal update</span></div>
         </div>
-        <div class="case flag-amber" data-status="internal">
+        <div class="case flag-amber" data-status="sixmonths">
           <div class="case-top">
             <p class="case-title">Statement issued on Kisumu plant reopening delay</p>
             <span class="tag amber">In 6 months</span>
@@ -599,10 +779,10 @@
           <p class="case-body">Ministry spokesperson responds to inquiries; response logged alongside the original promise.</p>
           <div class="case-meta"><span>2 days ago</span><span>Internal update</span></div>
         </div>
-        <div class="case flag-olive" data-status="external">
+        <div class="case flag-olive" data-status="killings">
           <div class="case-top">
             <p class="case-title">Independent outlet corroborates Mathare timeline</p>
-            <span class="tag olive">Killings</span>
+            <span class="tag violet">Killings</span>
           </div>
           <p class="case-body">External reporting aligns with witness statements already logged in our tracker.</p>
           <div class="case-meta"><span>4 days ago</span><span>External source</span></div>
@@ -611,6 +791,12 @@
       <p class="no-results" data-sw="Hakuna habari zinazofanana.">No matching news.</p>
 
       <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na masasisho halisi kabla ya kuchapisha.">Sample entries shown for layout only — replace with real, dated updates before publishing.</p>
+
+      <p class="eyebrow" style="margin-top:36px;" data-sw="MOJA KWA MOJA KUTOKA X">LIVE FROM X</p>
+      <p class="lede" style="margin-bottom:20px;" data-sw="Chapisho letu la hivi karibuni, moja kwa moja kutoka @MuchinaMkenya.">Our latest posts, pulled live from @MuchinaMkenya.</p>
+      <div class="twitter-embed-wrap">
+        <a class="twitter-timeline" data-height="600" data-theme="dark" data-link-color="#d4664a" href="https://twitter.com/MuchinaMkenya?ref_src=twsrc%5Etfw">Tweets by MuchinaMkenya</a>
+      </div>
     </section>
 
     <!-- CONTACT -->
@@ -620,6 +806,12 @@
       <p class="lede" data-sw="Una hati, ushahidi, au taarifa? Tutumie ujumbe, au wasiliana nasi moja kwa moja kupitia barua pepe au mitandao ya kijamii.">Have a document, evidence, or a tip? Send us a message, or reach us directly by email or social media.</p>
 
       <div class="contact-grid">
+        <div id="cf-success" class="form-success" style="grid-column:1 / -1;">
+          <div style="font-family:'Newsreader',serif;font-size:26px;color:var(--ink-strong);" data-sw="Asante.">Thank you.</div>
+          <p style="margin:8px 0 16px;color:var(--muted);" data-sw="Ujumbe wako umepokelewa.">Your message has been received.</p>
+          <button type="button" id="cf-reset" class="lang-toggle" data-sw="Tuma tena">Send another</button>
+        </div>
+
         <form id="contactForm" novalidate action="https://formspree.io/f/xoevlpey" method="POST">
           <div class="form-group">
             <label for="cf-name" data-sw="Jina">Name</label>
@@ -636,7 +828,6 @@
             <textarea id="cf-message" name="message"></textarea>
             <p class="form-error" data-field="message" data-sw="Tafadhali andika ujumbe wako.">Please enter a message.</p>
           </div>
-          <p class="form-success" id="cf-success" data-sw="Asante. Ujumbe wako umepokelewa.">Thank you. Your message has been received.</p>
           <p class="form-error" id="cf-general-error" data-sw="Jambo limeharibika. Tafadhali tujumbe moja kwa moja kupitia barua pepe hapo chini.">Something went wrong sending your message. Please email us directly at the address below instead.</p>
           <button type="submit" class="send-btn" data-sw="Tuma ujumbe">Send message</button>
         </form>
@@ -645,7 +836,7 @@
           <h3 data-sw="Wasiliana moja kwa moja">Direct contact</h3>
           <a class="email-link" href="mailto:tips@hatujasahau.org">tips@hatujasahau.org</a>
           <ul class="social-list">
-            <li><a href="https://twitter.com/hatujasahau" target="_blank" rel="noopener">X (Twitter) <span class="handle">@hatujasahau</span></a></li>
+            <li><a href="https://x.com/MuchinaMkenya" target="_blank" rel="noopener">X (Twitter) <span class="handle">@MuchinaMkenya</span></a></li>
             <li><a href="https://facebook.com/hatujasahau" target="_blank" rel="noopener">Facebook <span class="handle">/hatujasahau</span></a></li>
             <li><a href="https://instagram.com/hatujasahau" target="_blank" rel="noopener">Instagram <span class="handle">@hatujasahau</span></a></li>
           </ul>
@@ -657,21 +848,24 @@
     <section class="panel" id="panel-about">
       <p class="eyebrow" data-sw="MBINU">METHODOLOGY</p>
       <h2 class="headline" data-sw="Kuhusu Hatujasahau">About Hatujasahau</h2>
-      <p class="lede" data-sw="Rekodi ya kile serikali ilisema itafanya, na kile ilichofanya kweli — ili kisisahauliwe kimya kimya.">A record of what the government said it would do, and what it actually did — kept so it can't quietly be forgotten.</p>
+      <p class="lede-italic" data-sw="Rekodi ya kile serikali ilisema itafanya, na kile ilichofanya kweli — ili kisisahauliwe kimya kimya.">A record of what the government said it would do, and what it actually did — kept so it can't quietly be forgotten.</p>
 
       <div class="about-grid">
         <div>
           <h3 data-sw="Tunachofanya">What we do</h3>
           <p data-sw="Tunarekodi ahadi za umma, maamuzi ya matumizi ya fedha, na matukio yaliyothibitishwa, na kuyafuatilia hadi yapate matokeo wazi. Kila dai kwenye tovuti hii linaunganishwa na chanzo cha msingi: hati, rekodi ya mahakama, rekodi iliyothibitishwa, au taarifa huru.">We log public promises, spending decisions, and documented incidents, and revisit each one until it has a clear outcome. Every claim on this site links to a primary source: a document, a court record, a verified recording, or independent reporting.</p>
+        </div>
+        <div>
           <h3 data-sw="Tusichofanya">What we don't do</h3>
           <p data-sw="Hatuchapishi mashtaka ambayo hayajathibitishwa, na tunatenganisha uchambuzi wetu kutoka kwa ukweli wa msingi kwa uwazi, ili wasomaji waweze kutofautisha kati ya hizo mbili kwa haraka.">We don't publish unverified accusations, and we separate our own analysis from the underlying facts clearly, so readers can tell the two apart at a glance.</p>
         </div>
-        <div>
-          <div class="principle"><span class="k">01</span><span data-sw="Kila ingizo lina chanzo">Every entry is sourced</span></div>
-          <div class="principle"><span class="k">02</span><span data-sw="Ukweli na maoni yametofautishwa kwa mwonekano">Fact and commentary are kept visually distinct</span></div>
-          <div class="principle"><span class="k">03</span><span data-sw="Maingizo yanasasishwa ushahidi mpya ukipatikana">Entries are updated as new evidence appears</span></div>
-          <div class="principle"><span class="k">04</span><span data-sw="Marekebisho yanarekodiwa, hayabadilishwi kimya kimya">Corrections are logged, not silently edited</span></div>
-        </div>
+      </div>
+
+      <div class="principles">
+        <div class="principle"><span class="k">01</span><span data-sw="Kila ingizo lina chanzo">Every entry is sourced</span></div>
+        <div class="principle"><span class="k">02</span><span data-sw="Ukweli na maoni yametofautishwa kwa mwonekano">Fact and commentary are kept visually distinct</span></div>
+        <div class="principle"><span class="k">03</span><span data-sw="Maingizo yanasasishwa ushahidi mpya ukipatikana">Entries are updated as new evidence appears</span></div>
+        <div class="principle"><span class="k">04</span><span data-sw="Marekebisho yanarekodiwa, hayabadilishwi kimya kimya">Corrections are logged, not silently edited</span></div>
       </div>
     </section>
 
@@ -679,7 +873,10 @@
 </main>
 
 <footer>
-  <div class="wrap" data-sw="HATUJASAHAU — rekodi ya umma, inayowekwa wazi">HATUJASAHAU — a public record, kept in the open</div>
+  <div class="wrap">
+    <span class="footer-logo">Hatujasahau</span>
+    <span data-sw="Rekodi ya umma, inayowekwa wazi">A public record, kept in the open</span>
+  </div>
 </footer>
 
 <script>
@@ -731,74 +928,53 @@
     });
   });
 
-  // Live data test — pulls real Kenya external debt data from the World Bank API,
-  // with a fallback indicator in case the primary series has no data for this country.
+  // Live data test — pulls real Kenya external debt data from the World Bank API.
   var liveDataContainer = document.getElementById('live-debt-data');
+  var liveStatus = document.getElementById('live-debt-status');
   if (liveDataContainer){
-    function renderDebtRows(rows, indicatorLabel, indicatorCode){
-      liveDataContainer.innerHTML = '';
-      rows.forEach(function(r){
-        var div = document.createElement('div');
-        div.className = 'case flag-amber';
-        var displayValue = (indicatorCode === 'DT.DOD.DECT.CD')
-          ? '$' + (r.value / 1e9).toFixed(2) + 'bn'
-          : r.value.toLocaleString();
-        div.innerHTML =
-          '<div class="case-top">' +
-            '<p class="case-title">' + indicatorLabel + ' — ' + r.date + '</p>' +
-            '<span class="tag amber">' + displayValue + '</span>' +
-          '</div>' +
-          '<p class="case-body">Source: World Bank, World Development Indicators (' + indicatorCode + '). Fetched live from api.worldbank.org.</p>' +
-          '<div class="case-meta"><span>Live API result</span></div>';
-        liveDataContainer.appendChild(div);
-      });
-    }
-
-    function fetchIndicator(code){
-      return fetch('https://api.worldbank.org/v2/country/KEN/indicator/' + code + '?format=json&per_page=20')
-        .then(function(res){ return res.json(); })
-        .then(function(json){
-          var rows = (json && json[1]) ? json[1] : [];
-          return rows.filter(function(r){ return r.value !== null; }).slice(0, 5);
-        });
-    }
-
-    fetchIndicator('DT.DOD.DECT.CD')
-      .then(function(rows){
-        if (rows.length){
-          renderDebtRows(rows, 'External debt stocks, total', 'DT.DOD.DECT.CD');
+    fetch('https://api.worldbank.org/v2/country/KE/indicator/DT.DOD.DECT.CD?format=json&mrv=5')
+      .then(function(res){ return res.json(); })
+      .then(function(json){
+        var rows = (json && json[1] ? json[1] : [])
+          .filter(function(r){ return r.value !== null; })
+          .reverse();
+        if (!rows.length){
+          liveDataContainer.innerHTML = '';
+          if (liveStatus) liveStatus.textContent = 'No data returned.';
           return;
         }
-        // Primary series came back empty — fall back to population as a pure
-        // connectivity check, so we can tell "no data for this indicator"
-        // apart from "the API call itself failed."
-        return fetchIndicator('SP.POP.TOTL').then(function(fallbackRows){
-          if (fallbackRows.length){
-            renderDebtRows(fallbackRows, 'Population, total (debt series had no data — connection confirmed working)', 'SP.POP.TOTL');
-          } else {
-            liveDataContainer.innerHTML = '<p class="no-results" style="display:block;">The API responded, but returned no data for either indicator.</p>';
-          }
+        liveDataContainer.innerHTML = '';
+        rows.forEach(function(r){
+          var item = document.createElement('div');
+          item.className = 'debt-item';
+          item.innerHTML =
+            '<span class="year">' + r.date + '</span>' +
+            '<span class="value">$' + (r.value / 1e9).toFixed(1) + 'bn</span>';
+          liveDataContainer.appendChild(item);
         });
+        if (liveStatus) liveStatus.textContent = 'External debt stocks, total (current US$). Connection confirmed.';
       })
-      .catch(function(err){
-        liveDataContainer.innerHTML = '<p class="no-results" style="display:block;">Could not load live data (' + err.message + ').</p>';
+      .catch(function(){
+        liveDataContainer.innerHTML = '';
+        if (liveStatus) liveStatus.textContent = 'Could not reach the World Bank API.';
       });
   }
 
   // Contact form validation + submission
   var contactForm = document.getElementById('contactForm');
   if (contactForm){
+    var successCard = document.getElementById('cf-success');
+    var resetBtn = document.getElementById('cf-reset');
+
     contactForm.addEventListener('submit', function(e){
       e.preventDefault();
       var name = document.getElementById('cf-name');
       var email = document.getElementById('cf-email');
       var message = document.getElementById('cf-message');
-      var success = document.getElementById('cf-success');
       var generalError = document.getElementById('cf-general-error');
       var sendBtn = contactForm.querySelector('.send-btn');
       var errors = contactForm.querySelectorAll('.form-error');
       errors.forEach(function(err){ err.style.display = 'none'; });
-      success.style.display = 'none';
 
       var valid = true;
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -826,8 +1002,9 @@
       }).then(function(response){
         sendBtn.disabled = false;
         if (response.ok){
-          success.style.display = 'block';
           contactForm.reset();
+          contactForm.style.display = 'none';
+          successCard.style.display = 'block';
         } else {
           generalError.style.display = 'block';
         }
@@ -836,6 +1013,13 @@
         generalError.style.display = 'block';
       });
     });
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', function(){
+        successCard.style.display = 'none';
+        contactForm.style.display = '';
+      });
+    }
   }
 
   // English / Swahili toggle
@@ -864,5 +1048,6 @@
   });
 </script>
 
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
