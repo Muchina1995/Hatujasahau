@@ -20,10 +20,10 @@
     --ink-strong:#f6efe4;
     --ink-soft:#f3ece1;
     --body-soft:#d6cdbf;
-    --muted:#a89e90;
-    --muted-2:#7d7367;
+    --muted:#b9ad9e;
+    --muted-2:#a89c8c;
     --accent:#d4664a;
-    --accent-soft:#d9b7a6;
+    --accent-soft:#f0cbb8;
     --link:#e0a58e;
     --tag-red:#e08a70;
     --tag-amber:#d9b36a;
@@ -316,6 +316,26 @@
   .tag.gray{color:var(--tag-gray);}
   .case-body{grid-column:1 / -1;font-size:15px;color:var(--muted);margin:0;max-width:70ch;line-height:1.6;}
   .case-meta{grid-column:1 / -1;display:flex;gap:18px;font-size:12px;color:var(--muted-2);font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;margin-top:2px;}
+  .case-actions{
+    grid-column:1 / -1;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .case-action-btn{
+    background:none;
+    border:none;
+    padding:0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.03em;
+    color:var(--body-soft);
+    text-decoration:none;
+  }
+  .case-action-btn:hover{color:var(--ink-strong);}
 
   .divider-note{
     font-size:12px;
@@ -324,12 +344,33 @@
     margin-top:20px;
   }
 
-  .twitter-embed-wrap{
+  .x-follow-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 22px;
     border:1px solid var(--line);
     border-radius:6px;
     background:var(--card);
-    padding:4px;
-    max-width:520px;
+    color:var(--ink-soft);
+    font-size:15px;
+    font-weight:500;
+  }
+  .x-follow-link:hover{border-color:var(--muted);color:var(--ink-strong);}
+  .x-follow-link .arrow{color:var(--accent);}
+
+  .youtube-embed-wrap{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--card);
+    max-width:640px;
+  }
+  .youtube-embed-wrap iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    display:block;
+    border:none;
   }
 
   /* Live data panel */
@@ -417,7 +458,8 @@
     font-family:'IBM Plex Sans',sans-serif;
   }
   .form-group input,
-  .form-group textarea{
+  .form-group textarea,
+  .form-group select{
     width:100%;
     padding:12px 14px;
     border:1px solid var(--line-dash);
@@ -428,9 +470,16 @@
     color:var(--ink-soft);
   }
   .form-group input:focus,
-  .form-group textarea:focus{outline:none;border-color:var(--muted);}
+  .form-group textarea:focus,
+  .form-group select:focus{outline:none;border-color:var(--muted);}
   .form-group textarea{resize:vertical;min-height:110px;}
   .form-error{font-size:13px;color:var(--tag-red);margin-top:6px;display:none;}
+  .tip-section{
+    margin-top:56px;
+    padding-top:40px;
+    border-top:1px dashed var(--line-dash);
+    max-width:560px;
+  }
   .form-success{
     font-size:14px;
     color:var(--ink-strong);
@@ -473,7 +522,17 @@
     color:var(--link);
     margin-bottom:0;
   }
-  .social-list{list-style:none;margin:20px 0 0;padding:20px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;}
+  .social-heading{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--muted-2);
+    margin:20px 0 0;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+  .social-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
   .social-list li{border-top:none;}
   .social-list a{
     display:flex;
@@ -520,16 +579,28 @@
     background:var(--footer-bg);
     border-top:1px solid var(--line-soft);
   }
-  footer .wrap{
-    display:flex;
-    justify-content:space-between;
+  footer .wrap.footer-row{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
     align-items:center;
-    gap:24px;
-    flex-wrap:wrap;
+    gap:16px;
     padding:28px 24px;
     text-align:left;
+    white-space:nowrap;
   }
   footer .footer-logo{font-family:'Newsreader',serif;font-style:italic;font-size:19px;color:var(--ink-soft);}
+  .footer-copyright{color:var(--muted-2);text-align:center;}
+  .footer-tagline{color:var(--muted-2);text-align:right;justify-self:end;}
+  @media (max-width:760px){
+    footer .wrap.footer-row{
+      grid-template-columns:1fr;
+      justify-items:center;
+      text-align:center;
+      white-space:normal;
+      gap:8px;
+    }
+    .footer-tagline{justify-self:center;text-align:center;}
+  }
 
   @media (max-width:640px){
     .site-header{flex-wrap:wrap;}
@@ -567,8 +638,8 @@
     <!-- HOME -->
     <section class="panel active" id="panel-home">
       <div class="home-hero">
-        <p class="line1" data-sw="Kufichua ufisadi serikalini.">Exposing corruption in the government.</p>
-        <p class="line2" data-sw="Haki kwetu.">Justice to us.</p>
+        <p class="line1" data-sw="Kufichua kile ambacho wanasiasa hawa wanafanya kweli.">Exposing what these politicians actually do.</p>
+        <p class="line2" data-sw="Kupiga kura kwa ufahamu 2027.">Informed 2027 voting.</p>
       </div>
 
       <div class="mission-grid">
@@ -792,10 +863,24 @@
 
       <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na masasisho halisi kabla ya kuchapisha.">Sample entries shown for layout only — replace with real, dated updates before publishing.</p>
 
-      <p class="eyebrow" style="margin-top:36px;" data-sw="MOJA KWA MOJA KUTOKA X">LIVE FROM X</p>
-      <p class="lede" style="margin-bottom:20px;" data-sw="Chapisho letu la hivi karibuni, moja kwa moja kutoka @MuchinaMkenya.">Our latest posts, pulled live from @MuchinaMkenya.</p>
-      <div class="twitter-embed-wrap">
-        <a class="twitter-timeline" data-height="600" data-theme="dark" data-link-color="#d4664a" href="https://twitter.com/MuchinaMkenya?ref_src=twsrc%5Etfw">Tweets by MuchinaMkenya</a>
+      <p class="eyebrow" style="margin-top:36px;" data-sw="TUFUATE KWENYE X">FOLLOW ON X</p>
+      <p class="lede" style="margin-bottom:20px;" data-sw="Habari na masasisho zaidi zinachapishwa moja kwa moja kwenye @MuchinaMkenya.">More updates are posted directly to @MuchinaMkenya.</p>
+      <a class="x-follow-link" href="https://x.com/MuchinaMkenya" target="_blank" rel="noopener">
+        <span data-sw="Fungua @MuchinaMkenya kwenye X">Open @MuchinaMkenya on X</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <p class="eyebrow" style="margin-top:36px;" data-sw="VIDEO ZA HIVI KARIBUNI">LATEST VIDEOS</p>
+      <p class="lede" style="margin-bottom:20px;" data-sw="Video za hivi karibuni kutoka kwenye chaneli ya YouTube, zinasasishwa moja kwa moja.">Recent uploads from the YouTube channel, updating automatically as new videos go up.</p>
+      <div class="youtube-embed-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=UUhGjCZgG4caJpWkzIh-9ysQ"
+          title="Latest YouTube uploads"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
       </div>
     </section>
 
@@ -835,12 +920,70 @@
         <div class="contact-info">
           <h3 data-sw="Wasiliana moja kwa moja">Direct contact</h3>
           <a class="email-link" href="mailto:tips@hatujasahau.org">tips@hatujasahau.org</a>
+          <p class="social-heading" data-sw="Tufuate kwenye">Follow us on</p>
           <ul class="social-list">
             <li><a href="https://x.com/MuchinaMkenya" target="_blank" rel="noopener">X (Twitter) <span class="handle">@MuchinaMkenya</span></a></li>
-            <li><a href="https://facebook.com/hatujasahau" target="_blank" rel="noopener">Facebook <span class="handle">/hatujasahau</span></a></li>
-            <li><a href="https://instagram.com/hatujasahau" target="_blank" rel="noopener">Instagram <span class="handle">@hatujasahau</span></a></li>
+            <li><a href="https://www.facebook.com/jambahighdrated" target="_blank" rel="noopener">Facebook <span class="handle">/jambahighdrated</span></a></li>
+            <li><a href="https://www.instagram.com/antony_muchina/" target="_blank" rel="noopener">Instagram <span class="handle">@antony_muchina</span></a></li>
+            <li><a href="https://www.tiktok.com/@dj_on_a_ride" target="_blank" rel="noopener">TikTok <span class="handle">@dj_on_a_ride</span></a></li>
+            <li><a href="https://www.youtube.com/@dj.kifikifi" target="_blank" rel="noopener">YouTube <span class="handle">@dj.kifikifi</span></a></li>
           </ul>
         </div>
+      </div>
+
+      <div class="tip-section">
+        <p class="eyebrow" data-sw="TUMA KIDOKEZO">SUBMIT A TIP</p>
+        <p class="lede" data-sw="Una uthibitisho, tarehe, na maelezo mahususi? Tumia fomu hii badala ya ujumbe wa jumla ili tuweze kuupanga haraka zaidi.">Have specific evidence, a date, and details? Use this instead of the general message form so we can triage it faster.</p>
+
+        <div id="tip-success" class="form-success">
+          <div style="font-family:'Newsreader',serif;font-size:26px;color:var(--ink-strong);" data-sw="Asante.">Thank you.</div>
+          <p style="margin:8px 0 16px;color:var(--muted);" data-sw="Kidokezo chako kimepokelewa na kitakaguliwa.">Your tip has been received and will be reviewed.</p>
+          <button type="button" id="tip-reset" class="lang-toggle" data-sw="Tuma kidokezo kingine">Submit another tip</button>
+        </div>
+
+        <form id="tipForm" novalidate action="https://formspree.io/f/xoevlpey" method="POST">
+          <input type="hidden" name="form_type" value="Tip submission">
+          <div class="form-group">
+            <label for="tip-category" data-sw="Aina">Category</label>
+            <select id="tip-category" name="category">
+              <option value="Killings" data-sw="Mauaji">Killings</option>
+              <option value="Corruption" data-sw="Ufisadi">Corruption</option>
+              <option value="Broken promise / In 6 months" data-sw="Ahadi iliyovunjika / Miezi 6">Broken promise / In 6 months</option>
+              <option value="Other" data-sw="Nyingine">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tip-location" data-sw="Mahali / Kaunti (hiari)">Location / County (optional)</label>
+            <input type="text" id="tip-location" name="location">
+          </div>
+          <div class="form-group">
+            <label for="tip-date" data-sw="Tarehe ya tukio (hiari)">Date of incident (optional)</label>
+            <input type="date" id="tip-date" name="incident_date">
+          </div>
+          <div class="form-group">
+            <label for="tip-confidence" data-sw="Chanzo cha taarifa">Source of information</label>
+            <select id="tip-confidence" name="source_confidence">
+              <option value="Witnessed personally" data-sw="Nilishuhudia mwenyewe">Witnessed personally</option>
+              <option value="Public record / document" data-sw="Rekodi ya umma / hati">Public record / document</option>
+              <option value="Secondhand / heard from others" data-sw="Habari kutoka kwa wengine">Secondhand / heard from others</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tip-description" data-sw="Maelezo">Description</label>
+            <textarea id="tip-description" name="description"></textarea>
+            <p class="form-error" data-field="description" data-sw="Tafadhali eleza kidokezo chako.">Please describe your tip.</p>
+          </div>
+          <div class="form-group">
+            <label for="tip-name" data-sw="Jina (hiari)">Name (optional)</label>
+            <input type="text" id="tip-name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="tip-email" data-sw="Barua pepe (hiari, kwa ufuatiliaji)">Email (optional, for follow-up)</label>
+            <input type="email" id="tip-email" name="email">
+          </div>
+          <p class="form-error" id="tip-general-error" data-sw="Jambo limeharibika. Tafadhali tujumbe moja kwa moja kupitia barua pepe hapo juu.">Something went wrong sending this. Please email us directly using the address above instead.</p>
+          <button type="submit" class="send-btn" data-sw="Tuma kidokezo">Submit tip</button>
+        </form>
       </div>
     </section>
 
@@ -873,9 +1016,10 @@
 </main>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap footer-row">
     <span class="footer-logo">Hatujasahau</span>
-    <span data-sw="Rekodi ya umma, inayowekwa wazi">A public record, kept in the open</span>
+    <span class="footer-copyright">&copy; 2026 Hatujasahau</span>
+    <span class="footer-tagline" data-sw="Rekodi ya umma, inayowekwa wazi">A public record, kept in the open</span>
   </div>
 </footer>
 
@@ -960,6 +1104,63 @@
       });
   }
 
+  // Flag-this-entry + share buttons, added to every case card
+  document.querySelectorAll('.case').forEach(function(caseEl){
+    var titleEl = caseEl.querySelector('.case-title');
+    var title = titleEl ? titleEl.textContent.trim() : '';
+    var pageUrl = window.location.href.split('#')[0];
+
+    var actions = document.createElement('div');
+    actions.className = 'case-actions';
+
+    var flagBtn = document.createElement('button');
+    flagBtn.type = 'button';
+    flagBtn.className = 'case-action-btn';
+    flagBtn.setAttribute('data-sw', 'Ripoti ingizo hili');
+    flagBtn.textContent = 'Flag this entry';
+    flagBtn.addEventListener('click', function(){
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+      var contactTabBtn = document.querySelector('.tab-btn[data-tab="contact"]');
+      if (contactTabBtn) contactTabBtn.classList.add('active');
+      var contactPanel = document.getElementById('panel-contact');
+      if (contactPanel) contactPanel.classList.add('active');
+      var tipDescription = document.getElementById('tip-description');
+      if (tipDescription && title){
+        tipDescription.value = 'Regarding: "' + title + '" — ';
+        tipDescription.focus();
+      }
+      var tipSection = document.querySelector('.tip-section');
+      if (tipSection) tipSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    var shareX = document.createElement('a');
+    shareX.className = 'case-action-btn';
+    shareX.target = '_blank';
+    shareX.rel = 'noopener';
+    shareX.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(pageUrl);
+    shareX.setAttribute('data-sw', 'Shiriki kwenye X');
+    shareX.textContent = 'Share on X';
+
+    var shareWa = document.createElement('a');
+    shareWa.className = 'case-action-btn';
+    shareWa.target = '_blank';
+    shareWa.rel = 'noopener';
+    shareWa.href = 'https://wa.me/?text=' + encodeURIComponent(title + ' — ' + pageUrl);
+    shareWa.setAttribute('data-sw', 'Shiriki kwenye WhatsApp');
+    shareWa.textContent = 'Share on WhatsApp';
+
+    actions.appendChild(flagBtn);
+    actions.appendChild(shareX);
+    actions.appendChild(shareWa);
+    caseEl.appendChild(actions);
+
+    // Register these dynamically-created labels with the language toggle
+    [flagBtn, shareX, shareWa].forEach(function(el){
+      el.dataset.en = el.textContent;
+    });
+  });
+
   // Contact form validation + submission
   var contactForm = document.getElementById('contactForm');
   if (contactForm){
@@ -1022,6 +1223,56 @@
     }
   }
 
+  // Tip form validation + submission
+  var tipForm = document.getElementById('tipForm');
+  if (tipForm){
+    var tipSuccess = document.getElementById('tip-success');
+    var tipResetBtn = document.getElementById('tip-reset');
+
+    tipForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var description = document.getElementById('tip-description');
+      var generalError = document.getElementById('tip-general-error');
+      var sendBtn = tipForm.querySelector('.send-btn');
+      var errors = tipForm.querySelectorAll('.form-error');
+      errors.forEach(function(err){ err.style.display = 'none'; });
+
+      var valid = true;
+      if (!description.value.trim()){
+        tipForm.querySelector('[data-field="description"]').style.display = 'block';
+        valid = false;
+      }
+      if (!valid) return;
+
+      sendBtn.disabled = true;
+
+      fetch(tipForm.action, {
+        method: 'POST',
+        body: new FormData(tipForm),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        sendBtn.disabled = false;
+        if (response.ok){
+          tipForm.reset();
+          tipForm.style.display = 'none';
+          tipSuccess.style.display = 'block';
+        } else {
+          generalError.style.display = 'block';
+        }
+      }).catch(function(){
+        sendBtn.disabled = false;
+        generalError.style.display = 'block';
+      });
+    });
+
+    if (tipResetBtn){
+      tipResetBtn.addEventListener('click', function(){
+        tipSuccess.style.display = 'none';
+        tipForm.style.display = '';
+      });
+    }
+  }
+
   // English / Swahili toggle
   var langToggle = document.getElementById('langToggle');
   var translatable = document.querySelectorAll('[data-sw]');
@@ -1048,6 +1299,5 @@
   });
 </script>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
