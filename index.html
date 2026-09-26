@@ -359,20 +359,6 @@
   .x-follow-link:hover{border-color:var(--muted);color:var(--ink-strong);}
   .x-follow-link .arrow{color:var(--accent);}
 
-  .youtube-embed-wrap{
-    border:1px solid var(--line);
-    border-radius:6px;
-    overflow:hidden;
-    background:var(--card);
-    max-width:640px;
-  }
-  .youtube-embed-wrap iframe{
-    width:100%;
-    aspect-ratio:16/9;
-    display:block;
-    border:none;
-  }
-
   /* Live data panel */
   .debt-panel{
     margin-top:48px;
@@ -870,18 +856,12 @@
         <span class="arrow">&rarr;</span>
       </a>
 
-      <p class="eyebrow" style="margin-top:36px;" data-sw="VIDEO ZA HIVI KARIBUNI">LATEST VIDEOS</p>
-      <p class="lede" style="margin-bottom:20px;" data-sw="Video za hivi karibuni kutoka kwenye chaneli ya YouTube, zinasasishwa moja kwa moja.">Recent uploads from the YouTube channel, updating automatically as new videos go up.</p>
-      <div class="youtube-embed-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=UUhGjCZgG4caJpWkzIh-9ysQ"
-          title="Latest YouTube uploads"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
+      <p class="eyebrow" style="margin-top:36px;" data-sw="TAZAMA KWENYE YOUTUBE">WATCH ON YOUTUBE</p>
+      <p class="lede" style="margin-bottom:20px;" data-sw="Video zinachapishwa moja kwa moja kwenye chaneli.">Videos are posted directly to the channel.</p>
+      <a class="x-follow-link" href="https://www.youtube.com/@dj.kifikifi" target="_blank" rel="noopener">
+        <span data-sw="Fungua chaneli kwenye YouTube">Open the channel on YouTube</span>
+        <span class="arrow">&rarr;</span>
+      </a>
     </section>
 
     <!-- CONTACT -->
