@@ -432,6 +432,42 @@
     border-radius:6px;
     display:none;
   }
+  .cases-status{font-size:13px;color:var(--muted-2);padding:6px 0 14px;font-family:'IBM Plex Mono',monospace;}
+
+  /* Dynamic case entries: sources row + expandable timeline */
+  .case-sources{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:4px;font-size:12px;margin-top:6px;}
+  .case-sources a{color:var(--link);}
+  .case-sources a:hover{color:var(--ink-soft);}
+  .timeline-toggle{
+    grid-column:1 / -1;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--accent);
+    background:none;
+    border:none;
+    padding:0;
+    margin-top:10px;
+    text-align:left;
+  }
+  .timeline-toggle:hover{text-decoration:underline;}
+  .timeline{
+    grid-column:1 / -1;
+    display:none;
+    flex-direction:column;
+    gap:16px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px dashed var(--line-dash);
+  }
+  .timeline.open{display:flex;}
+  .timeline-entry{padding-left:14px;border-left:2px solid var(--line);}
+  .timeline-entry .t-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted-2);display:block;margin-bottom:4px;}
+  .timeline-entry .t-headline{font-family:'Newsreader',serif;font-size:17px;color:var(--ink-soft);margin:0 0 4px;}
+  .timeline-entry .t-body{font-size:14px;color:var(--muted);margin:0 0 8px;line-height:1.6;}
+  .timeline-entry img{max-width:100%;border-radius:4px;display:block;margin-bottom:6px;}
+  .timeline-entry .t-caption{font-size:11.5px;color:var(--muted-2);margin:0 0 8px;}
+  .timeline-entry .t-sources{font-size:11.5px;}
+  .timeline-entry .t-sources a{color:var(--link);}
 
   /* Contact page */
   .contact-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:48px;align-items:start;margin-top:8px;}
@@ -686,32 +722,15 @@
         <button class="filter-btn" data-status="closed" data-sw="Zilizofungwa">Closed</button>
       </div>
 
-      <div class="cases">
-        <div class="case flag-red" data-status="investigating">
-          <div class="case-top">
-            <p class="case-title">Nairobi, Mathare — protest-related death</p>
-            <span class="tag red">Under investigation</span>
-          </div>
-          <p class="case-body">Circumstances reported by witnesses at the scene. Independent inquest has not concluded.</p>
-          <div class="case-meta"><span>Reported this month</span><span>3 sources</span></div>
-        </div>
-        <div class="case flag-amber" data-status="investigating">
-          <div class="case-top">
-            <p class="case-title">Kisumu — custody death</p>
-            <span class="tag amber">Inquest ongoing</span>
-          </div>
-          <p class="case-body">Family and rights group have filed for an independent post-mortem, per statements to local press.</p>
-          <div class="case-meta"><span>Reported last month</span><span>2 sources</span></div>
-        </div>
-      </div>
+      <div class="cases" id="killings-cases"></div>
       <p class="no-results" data-sw="Hakuna kesi zinazofanana.">No matching cases.</p>
 
-      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
+      <p class="divider-note" data-sw="Kila ingizo huongezwa na kukaguliwa kupitia kidhibiti maudhui cha tovuti.">Every entry here is added and reviewed through the site's content manager.</p>
     </section>
 
     <!-- CORRUPTION -->
     <section class="panel" id="panel-corruption">
-      <p class="eyebrow" data-sw="KESI 148 ZINAZOFUATILIWA">148 CASES TRACKED</p>
+      <p class="eyebrow" data-sw="KESI ZINAZOFUATILIWA">CASES TRACKED</p>
       <h2 class="headline" data-sw="Kifuatiliaji cha ufisadi">Corruption tracker</h2>
       <p class="lede" data-sw="Fedha za umma, ununuzi, na maafisa — zimepangwa ili dai lolote liweze kufuatiliwa hadi kwenye nyaraka.">Public funds, procurement, and officials — organised so a claim can always be traced back to a document.</p>
 
@@ -720,29 +739,13 @@
         <button class="filter-btn active" data-status="all" data-sw="Zote">All</button>
         <button class="filter-btn" data-status="open" data-sw="Wazi">Open</button>
         <button class="filter-btn" data-status="review" data-sw="Inakaguliwa">Under review</button>
+        <button class="filter-btn" data-status="closed" data-sw="Zilizofungwa">Closed</button>
       </div>
 
-      <div class="cases">
-        <div class="case flag-red" data-status="open">
-          <div class="case-top">
-            <p class="case-title">County road fund shortfall</p>
-            <span class="tag red">Ksh 2.3bn</span>
-          </div>
-          <p class="case-body">Contracted road length does not match kilometres surfaced on site inspection across six counties.</p>
-          <div class="case-meta"><span>Opened Aug 2026</span><span>12 sources</span></div>
-        </div>
-        <div class="case flag-amber" data-status="review">
-          <div class="case-top">
-            <p class="case-title">Ministry payroll transfers</p>
-            <span class="tag amber">Under review</span>
-          </div>
-          <p class="case-body">Audit obtained via records request; matching personnel files not yet located.</p>
-          <div class="case-meta"><span>Opened this month</span><span>4 sources</span></div>
-        </div>
-      </div>
+      <div class="cases" id="corruption-cases"></div>
       <p class="no-results" data-sw="Hakuna kesi zinazofanana.">No matching cases.</p>
 
-      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na taarifa zilizothibitishwa kabla ya kuchapisha.">Sample entries shown for layout only — replace with verified, sourced reporting before publishing.</p>
+      <p class="divider-note" data-sw="Kila ingizo huongezwa na kukaguliwa kupitia kidhibiti maudhui cha tovuti. Mashauri ya mahakama chini yanafuatiliwa kiotomatiki kutoka Kenya Law.">Every entry here is added and reviewed through the site's content manager. Court filings below are auto-tracked from Kenya Law.</p>
 
       <div class="debt-panel">
         <div class="debt-panel-head">
@@ -776,32 +779,7 @@
         <button class="filter-btn" data-status="pending" data-sw="Zinazosubiri">Pending</button>
       </div>
 
-      <div class="cases">
-        <div class="case flag-red" data-status="overdue">
-          <div class="case-top">
-            <p class="case-title">Nairobi–Mombasa highway expansion</p>
-            <span class="tag red">Overdue</span>
-          </div>
-          <p class="case-body">Promised complete by March 2026 in a January briefing. Site visits this month show roughly a third of the road surfaced.</p>
-          <div class="case-meta"><span>Promised Jan 2026</span><span>4 sources</span></div>
-        </div>
-        <div class="case flag-red" data-status="overdue">
-          <div class="case-top">
-            <p class="case-title">Kisumu fertilizer plant reopening</p>
-            <span class="tag red">Overdue</span>
-          </div>
-          <p class="case-body">Reopening within six months was announced at a county rally. Plant remains closed with no new site activity.</p>
-          <div class="case-meta"><span>Promised Nov 2025</span><span>3 sources</span></div>
-        </div>
-        <div class="case flag-olive" data-status="delivered">
-          <div class="case-top">
-            <p class="case-title">Eldoret water supply upgrade</p>
-            <span class="tag olive">Delivered</span>
-          </div>
-          <p class="case-body">Completed within the stated window, confirmed by two independent site visits.</p>
-          <div class="case-meta"><span>Promised Feb 2026</span><span>2 sources</span></div>
-        </div>
-      </div>
+      <div class="cases" id="promises-cases"></div>
       <p class="no-results" data-sw="Hakuna ahadi zinazofanana.">No matching promises.</p>
     </section>
 
@@ -819,35 +797,10 @@
         <button class="filter-btn" data-status="killings" data-sw="Mauaji">Killings</button>
       </div>
 
-      <div class="cases">
-        <div class="case flag-red" data-status="corruption">
-          <div class="case-top">
-            <p class="case-title">New entry added to the corruption tracker</p>
-            <span class="tag red">Corruption</span>
-          </div>
-          <p class="case-body">County road fund case updated with two additional procurement documents obtained this week.</p>
-          <div class="case-meta"><span>Today</span><span>Internal update</span></div>
-        </div>
-        <div class="case flag-amber" data-status="sixmonths">
-          <div class="case-top">
-            <p class="case-title">Statement issued on Kisumu plant reopening delay</p>
-            <span class="tag amber">In 6 months</span>
-          </div>
-          <p class="case-body">Ministry spokesperson responds to inquiries; response logged alongside the original promise.</p>
-          <div class="case-meta"><span>2 days ago</span><span>Internal update</span></div>
-        </div>
-        <div class="case flag-olive" data-status="killings">
-          <div class="case-top">
-            <p class="case-title">Independent outlet corroborates Mathare timeline</p>
-            <span class="tag violet">Killings</span>
-          </div>
-          <p class="case-body">External reporting aligns with witness statements already logged in our tracker.</p>
-          <div class="case-meta"><span>4 days ago</span><span>External source</span></div>
-        </div>
-      </div>
+      <div class="cases" id="news-cases"></div>
       <p class="no-results" data-sw="Hakuna habari zinazofanana.">No matching news.</p>
 
-      <p class="divider-note" data-sw="Maingizo ya mfano yameonyeshwa kwa mpangilio pekee — badilisha na masasisho halisi kabla ya kuchapisha.">Sample entries shown for layout only — replace with real, dated updates before publishing.</p>
+      <p class="divider-note" data-sw="Kila ingizo huongezwa na kukaguliwa kupitia kidhibiti maudhui cha tovuti.">Every entry here is added and reviewed through the site's content manager.</p>
 
       <p class="eyebrow" style="margin-top:36px;" data-sw="TUFUATE KWENYE X">FOLLOW ON X</p>
       <p class="lede" style="margin-bottom:20px;" data-sw="Habari na masasisho zaidi zinachapishwa moja kwa moja kwenye @MuchinaMkenya.">More updates are posted directly to @MuchinaMkenya.</p>
@@ -1020,13 +973,15 @@
   panels.forEach(function(panel){
     var input = panel.querySelector('.search-input');
     var filterBtns = panel.querySelectorAll('.filter-btn');
-    var cases = panel.querySelectorAll('.case');
     var noResults = panel.querySelector('.no-results');
     if (!input && filterBtns.length === 0) return;
 
     var activeStatus = 'all';
 
     function apply(){
+      // Queried fresh each call (rather than cached once) so cards added
+      // later by the dynamic case-loading script are included.
+      var cases = panel.querySelectorAll('.case');
       var q = (input && input.value ? input.value : '').toLowerCase().trim();
       var anyVisible = false;
       cases.forEach(function(c){
@@ -1084,8 +1039,10 @@
       });
   }
 
-  // Flag-this-entry + share buttons, added to every case card
-  document.querySelectorAll('.case').forEach(function(caseEl){
+  // Flag-this-entry + share buttons. Extracted into a function so both the
+  // cards already in the page and any added later by the dynamic
+  // case-loading script (further down) get the same buttons.
+  function addCaseActions(caseEl){
     var titleEl = caseEl.querySelector('.case-title');
     var title = titleEl ? titleEl.textContent.trim() : '';
     var pageUrl = window.location.href.split('#')[0];
@@ -1135,11 +1092,16 @@
     actions.appendChild(shareWa);
     caseEl.appendChild(actions);
 
-    // Register these dynamically-created labels with the language toggle
+    // Register these dynamically-created labels with the language toggle.
+    // Note: this only translates them if added before the toggle's own
+    // translatable list is captured below — true for cards present at page
+    // load, not for cards the async case-loading script adds afterward.
     [flagBtn, shareX, shareWa].forEach(function(el){
       el.dataset.en = el.textContent;
     });
-  });
+  }
+
+  document.querySelectorAll('.case').forEach(addCaseActions);
 
   // Contact form validation + submission
   var contactForm = document.getElementById('contactForm');
@@ -1277,6 +1239,277 @@
     var current = langToggle.dataset.lang || 'en';
     setLang(current === 'en' ? 'sw' : 'en');
   });
+</script>
+
+<script>
+  // ---------------------------------------------------------------------
+  // Dynamic case loading.
+  //
+  // Reads the JSON files written by the admin/ content manager (Decap CMS)
+  // under data/cases/<collection>/, plus the auto-tracked Kenya Law
+  // judgments in data/kehc-judgments.json, and renders them as .case cards
+  // into the containers above. data/cases/index.json (built by a GitHub
+  // Action whenever a new entry is published) tells this script which
+  // filenames exist in each collection, since a static site has no way to
+  // list a folder's contents on its own.
+  //
+  // Cards are built with the DOM API (createElement/textContent) rather
+  // than innerHTML, so case content never gets parsed as markup.
+  // ---------------------------------------------------------------------
+  (function () {
+    var COLLECTIONS = {
+      corruption: {
+        folder: 'corruption',
+        container: 'corruption-cases',
+        dateField: 'opened',
+        statusMap: {
+          open: { tag: 'red' },
+          review: { tag: 'amber' },
+          closed: { tag: 'gray' }
+        }
+      },
+      killings: {
+        folder: 'killings',
+        container: 'killings-cases',
+        dateField: 'reported',
+        statusMap: {
+          investigating: { tag: 'red' },
+          closed: { tag: 'gray' }
+        }
+      },
+      promises: {
+        folder: 'promises',
+        container: 'promises-cases',
+        dateField: 'promised',
+        statusMap: {
+          overdue: { tag: 'red' },
+          delivered: { tag: 'olive' },
+          pending: { tag: 'amber' }
+        }
+      },
+      news: {
+        folder: 'news',
+        container: 'news-cases',
+        dateField: 'date',
+        // News entries key off `related_tracker` instead of `status` --
+        // handled separately in renderCase below.
+        statusMap: {
+          corruption: { tag: 'red', label: 'Corruption' },
+          sixmonths: { tag: 'amber', label: 'In 6 months' },
+          killings: { tag: 'violet', label: 'Killings' },
+          external: { tag: 'gray', label: 'External' }
+        },
+        statusField: 'related_tracker'
+      }
+    };
+
+    function fetchJSON(url) {
+      return fetch(url, { cache: 'no-store' }).then(function (res) {
+        if (!res.ok) throw new Error('Request failed: ' + url);
+        return res.json();
+      });
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined && text !== null) node.textContent = text;
+      return node;
+    }
+
+    function buildSourcesRow(sources, className) {
+      if (!sources || !sources.length) return null;
+      var row = el('div', className || 'case-sources');
+      sources.forEach(function (s, i) {
+        if (i > 0) row.appendChild(document.createTextNode(' · '));
+        var a = el('a', null, s.label || s.url);
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        row.appendChild(a);
+      });
+      return row;
+    }
+
+    function buildTimeline(entries) {
+      var sorted = entries.slice().sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
+      var wrap = el('div', 'timeline');
+      sorted.forEach(function (t) {
+        var entry = el('div', 'timeline-entry');
+        entry.appendChild(el('span', 't-date', formatDate(t.date)));
+        if (t.headline) entry.appendChild(el('p', 't-headline', t.headline));
+        if (t.image) {
+          var img = document.createElement('img');
+          img.src = t.image;
+          img.alt = t.caption || t.headline || '';
+          img.loading = 'lazy';
+          entry.appendChild(img);
+          if (t.caption) entry.appendChild(el('p', 't-caption', t.caption));
+        }
+        if (t.body) {
+          t.body.split(/\n+/).forEach(function (para) {
+            if (para.trim()) entry.appendChild(el('p', 't-body', para.trim()));
+          });
+        }
+        var sourcesRow = buildSourcesRow(t.sources, 't-sources');
+        if (sourcesRow) entry.appendChild(sourcesRow);
+        wrap.appendChild(entry);
+      });
+      return wrap;
+    }
+
+    function renderCase(caseData, config) {
+      var statusField = config.statusField || 'status';
+      var statusValue = caseData[statusField];
+      var statusInfo = config.statusMap[statusValue] || { tag: 'gray' };
+
+      var card = el('div', 'case');
+      card.setAttribute('data-status', statusValue || '');
+
+      var top = el('div', 'case-top');
+      top.appendChild(el('p', 'case-title', caseData.title || 'Untitled'));
+      var tagText = caseData.tag || statusInfo.label ||
+        (statusValue ? statusValue.charAt(0).toUpperCase() + statusValue.slice(1) : '');
+      if (tagText) top.appendChild(el('span', 'tag ' + statusInfo.tag, tagText));
+      card.appendChild(top);
+
+      if (caseData.summary) card.appendChild(el('p', 'case-body', caseData.summary));
+
+      var meta = el('div', 'case-meta');
+      var dateVal = caseData[config.dateField];
+      if (dateVal) meta.appendChild(el('span', null, formatDate(dateVal)));
+      var sourceCount = (caseData.sources || []).length;
+      if (sourceCount) meta.appendChild(el('span', null, sourceCount + (sourceCount === 1 ? ' source' : ' sources')));
+      card.appendChild(meta);
+
+      var sourcesRow = buildSourcesRow(caseData.sources);
+      if (sourcesRow) card.appendChild(sourcesRow);
+
+      if (caseData.timeline && caseData.timeline.length) {
+        var count = caseData.timeline.length;
+        var toggle = el('button', 'timeline-toggle',
+          'View timeline (' + count + ' update' + (count === 1 ? '' : 's') + ') ▾');
+        toggle.type = 'button';
+        var timelineEl = buildTimeline(caseData.timeline);
+        toggle.addEventListener('click', function () {
+          var isOpen = timelineEl.classList.toggle('open');
+          toggle.textContent = toggle.textContent.replace(/[▾▴]/, isOpen ? '▴' : '▾');
+        });
+        card.appendChild(toggle);
+        card.appendChild(timelineEl);
+      }
+
+      addCaseActions(card);
+      return card;
+    }
+
+    function renderJudgment(j) {
+      var card = el('div', 'case');
+      card.setAttribute('data-status', 'court');
+      var top = el('div', 'case-top');
+      top.appendChild(el('p', 'case-title', j.citation || 'Judgment'));
+      top.appendChild(el('span', 'tag amber', 'Court filing'));
+      card.appendChild(top);
+      var meta = el('div', 'case-meta');
+      if (j.date) meta.appendChild(el('span', null, formatDate(j.date)));
+      card.appendChild(meta);
+      var sourcesRow = el('div', 'case-sources');
+      var a = el('a', null, 'View full judgment on Kenya Law →');
+      a.href = j.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      sourcesRow.appendChild(a);
+      card.appendChild(sourcesRow);
+      addCaseActions(card);
+      return card;
+    }
+
+    function showStatus(container, message) {
+      var status = container.parentNode.querySelector('.cases-status[data-for="' + container.id + '"]');
+      if (!status) {
+        status = el('p', 'cases-status');
+        status.setAttribute('data-for', container.id);
+        container.parentNode.insertBefore(status, container);
+      }
+      if (message) {
+        status.textContent = message;
+        status.style.display = '';
+      } else {
+        status.style.display = 'none';
+      }
+    }
+
+    function loadCollection(name) {
+      var config = COLLECTIONS[name];
+      var container = document.getElementById(config.container);
+      if (!container) return;
+      showStatus(container, 'Loading entries…');
+
+      fetchJSON('data/cases/index.json')
+        .then(function (index) {
+          var files = (index && index[config.folder]) || [];
+          if (!files.length) {
+            showStatus(container, 'No entries published yet — check back soon.');
+            return null;
+          }
+          return Promise.all(
+            files.map(function (f) {
+              return fetchJSON('data/cases/' + config.folder + '/' + f).catch(function () { return null; });
+            })
+          );
+        })
+        .then(function (results) {
+          if (!results) return;
+          var cases = results.filter(Boolean);
+          if (!cases.length) {
+            showStatus(container, 'No entries published yet — check back soon.');
+            return;
+          }
+          cases.sort(function (a, b) {
+            return new Date(b[config.dateField]) - new Date(a[config.dateField]);
+          });
+          cases.forEach(function (c) {
+            container.appendChild(renderCase(c, config));
+          });
+          showStatus(container, null);
+        })
+        .catch(function (err) {
+          console.error('Failed to load ' + name + ' cases:', err);
+          showStatus(container, 'Could not load entries right now.');
+        });
+    }
+
+    function loadJudgments() {
+      var container = document.getElementById('corruption-cases');
+      if (!container) return;
+      fetchJSON('data/kehc-judgments.json')
+        .then(function (data) {
+          var judgments = (data && data.judgments) || [];
+          if (!judgments.length) return;
+          var heading = el('p', 'eyebrow', 'COURT FILINGS — AUTO-TRACKED');
+          heading.setAttribute('style', 'margin:28px 0 12px;');
+          container.appendChild(heading);
+          judgments.slice(0, 20).forEach(function (j) {
+            container.appendChild(renderJudgment(j));
+          });
+        })
+        .catch(function (err) {
+          console.error('Failed to load KEHC judgments:', err);
+        });
+    }
+
+    Object.keys(COLLECTIONS).forEach(loadCollection);
+    loadJudgments();
+  })();
 </script>
 
 </body>

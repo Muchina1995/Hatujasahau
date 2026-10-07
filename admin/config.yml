@@ -1,0 +1,115 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded photos/media land in the repo, and the URL prefix used
+# when the site links to them.
+media_folder: "media/uploads"
+public_folder: "/media/uploads"
+
+# Each save creates a draft you review/publish from the CMS's own
+# "Editorial Workflow" tab, rather than committing straight to main.
+publish_mode: editorial_workflow
+
+# Reusable field blocks -----------------------------------------------------
+
+timeline_fields: &timeline_fields
+  - label: "Timeline — chronological updates"
+    name: "timeline"
+    widget: "list"
+    summary: "{{fields.date}} — {{fields.headline}}"
+    fields:
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Headline", name: "headline", widget: "string" }
+      - { label: "Details", name: "body", widget: "markdown" }
+      - { label: "Photo", name: "image", widget: "image", required: false }
+      - { label: "Photo caption", name: "caption", widget: "string", required: false }
+      - label: "Sources for this update"
+        name: "sources"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+
+sources_field: &sources_field
+  - label: "Sources"
+    name: "sources"
+    widget: "list"
+    required: false
+    fields:
+      - { label: "Label", name: "label", widget: "string" }
+      - { label: "URL", name: "url", widget: "string" }
+
+# Collections ----------------------------------------------------------------
+
+collections:
+  - name: "corruption_cases"
+    label: "Corruption"
+    folder: "data/cases/corruption"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["open", "review", "closed"]
+      - { label: "Amount / tag (e.g. Ksh 2.3bn)", name: "tag", widget: "string", required: false }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Opened date", name: "opened", widget: "datetime", format: "YYYY-MM-DD" }
+      - *sources_field
+      - *timeline_fields
+
+  - name: "killings_cases"
+    label: "Killings"
+    folder: "data/cases/killings"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["investigating", "closed"]
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Reported date", name: "reported", widget: "datetime", format: "YYYY-MM-DD" }
+      - *sources_field
+      - *timeline_fields
+
+  - name: "promises"
+    label: "In 6 Months"
+    folder: "data/cases/promises"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["overdue", "delivered", "pending"]
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Promised date", name: "promised", widget: "datetime", format: "YYYY-MM-DD" }
+      - *sources_field
+      - *timeline_fields
+
+  - name: "news"
+    label: "News"
+    folder: "data/cases/news"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Related tracker"
+        name: "related_tracker"
+        widget: "select"
+        options: ["corruption", "killings", "sixmonths", "external"]
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - *sources_field
+      - *timeline_fields
