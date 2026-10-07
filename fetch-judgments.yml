@@ -1,0 +1,36 @@
+name: Fetch KEHC judgments
+
+on:
+  schedule:
+    # Runs once a day at 04:00 UTC (~07:00 EAT). Adjust as needed.
+    - cron: "0 4 * * *"
+  workflow_dispatch: {}  # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write  # needed so the workflow can commit the updated data file
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python .github/scripts/fetch_kehc_judgments.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "hatujasahau-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/kehc-judgments.json
+          git diff --cached --quiet || git commit -m "Update KEHC judgments $(date -u +%Y-%m-%d)"
+          git push
