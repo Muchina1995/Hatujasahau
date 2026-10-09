@@ -1,5 +1,7 @@
 {
-  "corruption": [],
+  "corruption": [
+    "the-famous-9-stadiums-across-various-counties.json"
+  ],
   "killings": [],
   "promises": [],
   "news": []
